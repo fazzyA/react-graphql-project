@@ -24,6 +24,12 @@ const ProgressPage = React.lazy(() => import('pages/ProgressPage'));
 const TablePage = React.lazy(() => import('pages/TablePage'));
 const TypographyPage = React.lazy(() => import('pages/TypographyPage'));
 const WidgetPage = React.lazy(() => import('pages/WidgetPage'));
+const SchedularPage = React.lazy(() => import('pages/SchedularPage'));
+const TicketPage = React.lazy(() => import('pages/TicketPage'));
+const ReportPage = React.lazy(() => import('pages/ReportPage'));
+const EmployeePage = React.lazy(() => import('pages/EmployeePage'));
+const CustomerPage = React.lazy(() => import('pages/CustomerPage'));
+const OrderPage = React.lazy(() => import('pages/OrderPage'));
 
 const getBasename = () => {
   return `/${process.env.PUBLIC_URL.split('/').pop()}`;
@@ -63,6 +69,12 @@ class App extends React.Component {
                 <Route exact path="/alerts" component={AlertPage} />
                 <Route exact path="/tables" component={TablePage} />
                 <Route exact path="/badges" component={BadgePage} />
+                <Route exact path="/schedular" component={SchedularPage} />
+                <Route exact path="/ticket" component={TicketPage} />
+                <Route exact path="/report" component={ReportPage} />
+                <Route exact path="/employee" component={EmployeePage} />
+                <Route exact path="/customer" component={CustomerPage} />
+                <Route exact path="/order" component={OrderPage} />
                 <Route
                   exact
                   path="/button-groups"
