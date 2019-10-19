@@ -10,11 +10,11 @@ import {
   CardHeader,
   Col,
   Row,
-  Table,
-  UncontrolledAlert,
+  Table
+ // UncontrolledAlert,
 } from 'reactstrap';
 
-const tableTypes = ['', 'bordered', 'striped', 'hover'];
+const tableTypes = ['responsive'];
 
 const ReportPage = () => {
   return (
@@ -33,9 +33,9 @@ const ReportPage = () => {
                         <thead>
                           <tr>
                             <th>#</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Username</th>
+                            <th>Report of</th>
+                            <th>Detail</th>
+                            <th>Report By</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -68,9 +68,9 @@ const ReportPage = () => {
                         <thead>
                           <tr>
                             <th>#</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Username</th>
+                            <th>Report of</th>
+                            <th>Detail</th>
+                            <th>Report By</th>
                           </tr>
                         </thead>
                         <tbody>

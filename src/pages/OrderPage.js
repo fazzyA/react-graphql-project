@@ -14,7 +14,7 @@ import {
   UncontrolledAlert,
 } from 'reactstrap';
 
-const tableTypes = ['', 'bordered', 'striped', 'hover'];
+const tableTypes = ['responsive'];
 
 const OrderPage = () => {
   return (
@@ -33,9 +33,9 @@ const OrderPage = () => {
                         <thead>
                           <tr>
                             <th>#</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Username</th>
+                            <th>Order</th>
+                            <th>Date</th>
+                            <th>Details</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -68,9 +68,9 @@ const OrderPage = () => {
                         <thead>
                           <tr>
                             <th>#</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Username</th>
+                            <th>Order</th>
+                            <th>Date</th>
+                            <th>Details</th>
                           </tr>
                         </thead>
                         <tbody>

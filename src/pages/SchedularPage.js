@@ -14,7 +14,7 @@ import {
   UncontrolledAlert,
 } from 'reactstrap';
 
-const tableTypes = ['', 'bordered', 'striped', 'hover'];
+const tableTypes = ['responsive'];
 
 const SchedularPage = () => {
   return (
@@ -33,8 +33,8 @@ const SchedularPage = () => {
                         <thead>
                           <tr>
                             <th>#</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
+                            <th>Schedule To</th>
+                            <th>From</th>
                             <th>Username</th>
                           </tr>
                         </thead>
@@ -68,8 +68,8 @@ const SchedularPage = () => {
                         <thead>
                           <tr>
                             <th>#</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
+                            <th>Schedule To</th>
+                            <th>From</th>
                             <th>Username</th>
                           </tr>
                         </thead>

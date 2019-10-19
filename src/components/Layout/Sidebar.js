@@ -82,15 +82,16 @@ const pageContents = [
 
 const navItems = [
   { to: '/', name: 'dashboard', exact: true, Icon: MdDashboard },
-  { to: '/cards', name: 'cards', exact: false, Icon: MdWeb },
-  { to: '/charts', name: 'charts', exact: false, Icon: MdInsertChart },
-  { to: '/widgets', name: 'widgets', exact: false, Icon: MdWidgets },
+ // { to: '/cards', name: 'cards', exact: false, Icon: MdWeb },
+ // { to: '/charts', name: 'charts', exact: false, Icon: MdInsertChart },
+ // { to: '/widgets', name: 'widgets', exact: false, Icon: MdWidgets },
   { to: '/schedular', name: 'schedular', exact: false, Icon: MdWidgets },
   { to: '/ticket', name: 'ticket', exact: false, Icon: MdWidgets },
   { to: '/report', name: 'report', exact: false, Icon: MdWidgets },
   { to: '/employee', name: 'employee', exact: false, Icon: MdWidgets },
   { to: '/customer', name: 'customer', exact: false, Icon: MdWidgets },
   { to: '/order', name: 'order', exact: false, Icon: MdWidgets },
+  { to: '/expense', name: 'expense', exact: false, Icon: MdWidgets },
 ];
 
 const bem = bn.create('sidebar');
@@ -127,7 +128,7 @@ class Sidebar extends React.Component {
                 alt=""
               />
               <span className="text-white">
-                Reduction <FaGithub />
+              BMCS <FaGithub />
               </span>
             </SourceLink>
           </Navbar>

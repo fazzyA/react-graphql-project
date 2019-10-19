@@ -1,20 +1,20 @@
 /* eslint-disable jsx-a11y/href-no-hash */
 
 import Page from 'components/Page';
-import Typography from 'components/Typography';
+//import Typography from 'components/Typography';
 import React from 'react';
 import {
-  Alert,
+ // Alert,
   Card,
   CardBody,
   CardHeader,
   Col,
   Row,
-  Table,
-  UncontrolledAlert,
+  Table
+ // UncontrolledAlert,
 } from 'reactstrap';
 
-const tableTypes = ['', 'bordered', 'striped', 'hover'];
+const tableTypes = ['responsive'];
 
 const ExpensePage = () => {
   return (
@@ -33,9 +33,9 @@ const ExpensePage = () => {
                         <thead>
                           <tr>
                             <th>#</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Username</th>
+                            <th>Expense</th>
+                            <th>Detail</th>
+                            <th>Expense By</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -68,9 +68,9 @@ const ExpensePage = () => {
                         <thead>
                           <tr>
                             <th>#</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Username</th>
+                            <th>Expense</th>
+                            <th>Detail</th>
+                            <th>Expense By</th>
                           </tr>
                         </thead>
                         <tbody>
@@ -103,31 +103,6 @@ const ExpensePage = () => {
         </Row>
       ))}
 
-      <Row>
-        <Col>
-          <Card>
-            <CardHeader>Some Content</CardHeader>
-            <CardBody>
-              <Alert color="success">
-                <Typography type="h4" className="alert-heading">
-                  Well done!
-                </Typography>
-                <Typography>
-                  Aww yeah, you successfully read this important alert message.
-                  This example text is going to run a bit longer so that you can
-                  see how spacing within an alert works with this kind of
-                  content.
-                </Typography>
-                <hr />
-                <Typography className="mb-0">
-                  Whenever you need to, be sure to use margin utilities to keep
-                  things nice and tidy.
-                </Typography>
-              </Alert>
-            </CardBody>
-          </Card>
-        </Col>
-      </Row>
     </Page>
   );
 };
