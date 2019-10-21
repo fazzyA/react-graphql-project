@@ -128,7 +128,8 @@ class Sidebar extends React.Component {
                 alt=""
               />
               <span className="text-white">
-              BMCS <FaGithub />
+                 BMCS 
+              {/* <FaGithub /> */}
               </span>
             </SourceLink>
           </Navbar>
