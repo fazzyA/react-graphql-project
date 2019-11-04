@@ -1,0 +1,13 @@
+div.addform {
+    border-bottom: 1px solid #efefef;
+    margin: 10px;
+    padding-bottom: 10px;
+    width: 260px;}
+    input[type=submit]{
+        border-radius: 20px;
+        padding: 10px 20px 10px 20px;
+        margin-left: 10%;
+    }
+    input[type=submit]:hover{
+        background-color: rgb(176, 153, 177);
+    }

@@ -9,7 +9,7 @@ const Footer = () => {
     <Navbar>
       <Nav navbar>
         <NavItem>
-         &copy BMCS 2019
+         &copy; BMCS 2019
           {/* <SourceLink>Github</SourceLink> */}
         </NavItem>
       </Nav>
