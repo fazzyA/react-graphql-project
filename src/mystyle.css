@@ -11,3 +11,6 @@ div.addform {
     input[type=submit]:hover{
         background-color: rgb(176, 153, 177);
     }
+label, select option{
+    text-transform: capitalize;
+}
