@@ -3,6 +3,7 @@
 import Page from 'components/Page';
 import Typography from 'components/Typography';
 import React from 'react';
+import { Link } from 'react-router-dom';
 import {
   Alert,
   Card,
@@ -13,13 +14,14 @@ import {
   Table,
   UncontrolledAlert,
 } from 'reactstrap';
+import '../mystyle.css';
 
 const tableTypes = ['responsive'];
 
 const TicketPage = () => {
   return (
     <Page title="Tickets" breadcrumbs={[{ name: 'tickets', active: true }]} >
-      <button>Add Ticket</button>
+      <button><Link to="/addticket">Add Ticket</Link></button>
         {tableTypes.map((tableType, index) => (
         <Row key={index}>
           <Col>

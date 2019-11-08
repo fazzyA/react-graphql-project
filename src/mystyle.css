@@ -14,3 +14,10 @@ div.addform {
 label, select option{
     text-transform: capitalize;
 }
+Link{
+    text-decoration: none;
+}
+Link:hover{
+    text-decoration: none;
+    color: aqua;
+}
