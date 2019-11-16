@@ -1,5 +1,5 @@
 import React from 'react';
-import '../../mystyle.css';
+// import '../../mystyle.css';
 import Page from 'components/Page';
 import {
   Button,
@@ -36,7 +36,7 @@ class AddTicket extends React.Component {
       <Row>
         <Col xl={6} lg={12} md={12}>
           <Card>
-            <CardHeader>Input Types</CardHeader>
+            <CardHeader>New Ticket</CardHeader>
             <CardBody>
               <Form>
 
@@ -64,34 +64,27 @@ class AddTicket extends React.Component {
                   </Input>
         </FormGroup>
 
-            <FormGroup>
-            <label>tech id</label><br />
-            <select name="techid">
-                <option value="">
-                --please select--</option>
-            </select>
-           </FormGroup>
+
             <FormGroup>
                 <label htmlFor="category">category</label>
-                <input
-                type="text"
-                name="category"
-                />
+                <Input
+                    value=""
+                    name="category"
+                  />
+
            </FormGroup>
            <FormGroup> 
                 <label htmlFor="description">description</label>
-                <textarea name="description">
-                </textarea>
+                <Input type="textarea" name="text" />
          </FormGroup>
           <FormGroup> 
                 <label htmlFor="comment">comment</label>
-                <textarea name="comment">
-                </textarea>
+                <Input type="textarea" name="text" />
          </FormGroup>
 
             <FormGroup>
                 <label htmlFor="calldate">date call received</label>
-                <input
+                <Input
                 type="date"
                 name="calldate"
                 value={this.state.calldate}
@@ -99,11 +92,11 @@ class AddTicket extends React.Component {
            </FormGroup>
             <FormGroup>
             <label htmlFor="status">Ticket Status</label>
-            <select name="status">
+            <Input type="select" name="status">
             <option value="">---select status ---</option>
             <option value="close">Close</option>
             <option value="pending">pending</option>
-            </select>
+            </Input>
            </FormGroup>
 
             <FormGroup check row>

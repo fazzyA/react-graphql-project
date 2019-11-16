@@ -13,13 +13,15 @@ import {
   Table
   //UncontrolledAlert,
 } from 'reactstrap';
+import { Link } from 'react-router-dom';
 
 const tableTypes = ['responsive'];
 
 const CustomerPage = () => {
   return (
     <Page title="Customers" breadcrumbs={[{ name: 'customers', active: true }]}>
-      
+    <button><Link to="/addcustomer">Add New</Link></button>
+
         {tableTypes.map((tableType, index) => (
         <Row key={index}>
           <Col>

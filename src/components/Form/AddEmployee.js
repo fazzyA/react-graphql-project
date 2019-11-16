@@ -1,5 +1,20 @@
 import React from 'react';
-import '../../mystyle.css';
+import Page from 'components/Page';
+import {
+  Button,
+  Card,
+  CardBody,
+  CardHeader,
+  Col,
+  Form,
+  FormFeedback,
+  FormGroup,
+  FormText,
+  Input,
+  Label,
+  Row,
+} from 'reactstrap';
+
 
 class AddEmployee extends React.Component {
 
@@ -17,110 +32,128 @@ class AddEmployee extends React.Component {
    
     render() {
       return (
-          <form>
+    <Page title="Add Employee" breadcrumbs={[{ name: 'add employee', active: true }]}>
+      <Row>
+        <Col xl={6} lg={12} md={12}>
+          <Card>
+            <CardHeader>New Ticket</CardHeader>
+            <CardBody>
+              <Form>
           <fieldset>
             <legend>Login Details</legend>
-          <div class="addform"><label htmlFor="username">username</label>
-            <input
+         <FormGroup><label htmlFor="username">username</label>
+            <Input
               type="text"
               name="username"
               value={this.state.username}
              // onChange={this.handleChange}
-            /></div>
-            <div class="addform">
+            /></FormGroup>
+           <FormGroup>
                 <label htmlFor="email">Email</label>
-                <input
+                <Input
                 type="text"
                 name="email"
                 />
-            </div>
+            </FormGroup>
             </fieldset>
 
-            <div class="addform">
+           <FormGroup>
             <label htmlFor="name">Name</label>
-            <input
+            <Input
               type="text"
               name="name"
              // onChange={this.handleChange}
             />
-            </div>
-            <div class="addform"> 
-                <label htmlFor="gender">gender</label>
-                <span class="">Gender:</span>
-                <input type="radio" name="gender" id="male"
-                  value="M" />
-                <label for="male">Male</label>
-                <input type="radio" name="gender" id="female"
-                  value="F" />
-                <label for="female">Female</label>            </div>
+            </FormGroup>
 
-            <div class="addform"> 
-                <label htmlFor="jt">rate per hour</label>
-                <input
+            <FormGroup check>
+              
+                      <Label check>
+                        <Input type="radio" name="gender" /> Male
+                      </Label>
+                    </FormGroup>
+
+                    <FormGroup check>
+                      <Label check>
+                        <Input type="radio" name="gender" /> Female
+                      </Label>
+                    </FormGroup>
+
+<hr></hr>
+            <FormGroup>
+                <label htmlFor="jt">Rate per hour</label>
+                <Input
                 type="text"
                 name="hrrate"
                 value={this.state.hrrate}
                 />
-            </div>
-            <div class="addform"> 
+            </FormGroup>
+            <FormGroup>
                 <label htmlFor="joindate">Join date</label>
-                <input
+                <Input
                 type="text"
                 name="joindate"
                 value={this.state.joindate}
                 />
-            </div>
-            <div class="addform"> 
+            </FormGroup>
+            <FormGroup>
                 <label htmlFor="phone">Phone</label>
-                <input
+                <Input
                 type="text"
                 name="phone"
                 value={this.state.phone}
                 />
-            </div>
-            <div class="addform"> 
+            </FormGroup>
+            <FormGroup>
                 <label htmlFor="address">Address</label>
-                <input
+                <Input
                 type="text"
                 name="address"
                 value={this.state.address}
                 />
-            </div>
-            <div class="addform"> 
+            </FormGroup>
+            <FormGroup>
                 <label htmlFor="badge">Badge</label>
-                <input
+                <Input
                 type="text"
                 name="badge"
                 value={this.state.badge}
                 />
-            </div>
-            <div class="addform"> 
+            </FormGroup>
+            <FormGroup>
                 <label htmlFor="pin">Pin</label>
-                <input
+                <Input
                 type="text"
                 name="pin"
                 value={this.state.pin}
                 />
-            </div>
-            <div class="addform"> 
+            </FormGroup>
+            <FormGroup>
                 <label htmlFor="department">department</label>
-                <input
+                <Input
                 type="text"
                 name="department"
                 value={this.state.department}
                 />
-            </div>
-            <div class="addform"> 
+            </FormGroup>
+            <FormGroup>
                 <label htmlFor="picture">Picture</label>
-                <input
+                <Input
                 type="file"
                 name="pic"
                 />
-            </div>
-            <div>
-		          <input type="submit" value="Register" id="submit" />
-         </div>
-          </form>
+            </FormGroup>
+            <FormGroup check row>
+                  <Col sm={{ size: 10, offset: 2 }}>
+                    <Button>Submit</Button>
+                  </Col>
+                </FormGroup>
+                </Form>
+          </CardBody>
+          </Card>
+          </Col>
+          </Row>
+          </Page>
    
       );
     }
