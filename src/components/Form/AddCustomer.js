@@ -19,7 +19,7 @@ const AddCustomer = () => {
   return (
     <Page title="Customer" breadcrumbs={[{ name: 'Customers', active: true }]}>
       <Row>
-        <Col xl={6} lg={12} md={12}>
+        <Col xl={10} lg={12} md={12}>
           <Card>
             <CardHeader>Input Types</CardHeader>
             <CardBody>
