@@ -10,6 +10,7 @@ import React from 'react';
 import componentQueries from 'react-component-queries';
 import { BrowserRouter, Redirect, Route, Switch } from 'react-router-dom';
 import './styles/reduction.scss';
+import MyCalendar from 'components/Moment';
 
 const AlertPage = React.lazy(() => import('pages/AlertPage'));
 const AuthModalPage = React.lazy(() => import('pages/AuthModalPage'));
@@ -81,6 +82,7 @@ class App extends React.Component {
                 <Route exact path="/customer" component={CustomerPage} />
                 <Route exact path="/order" component={OrderPage} />
                 <Route exact path="/expense" component={ExpensePage} />
+                <Route exact path="/calendar" component={MyCalendar} />
                 <Route
                   exact
                   path="/button-groups"
