@@ -34,7 +34,7 @@ class AddEmployee extends React.Component {
       return (
     <Page title="Add Employee" breadcrumbs={[{ name: 'add employee', active: true }]}>
       <Row>
-        <Col xl={6} lg={12} md={12}>
+        <Col xl={10} lg={12} md={12}>
           <Card>
             <CardHeader>New Ticket</CardHeader>
             <CardBody>

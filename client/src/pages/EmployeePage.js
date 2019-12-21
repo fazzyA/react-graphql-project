@@ -20,7 +20,7 @@ const tableTypes = ['responsive'];
 const EmployeePage = () => {
   return (
     <Page title="Employees" breadcrumbs={[{ name: 'employees', active: true }]}>
-    <button><Link to="/addemployee">Add New</Link></button>
+   <Link to="/addemployee" class="btn btn-primary active">Add New</Link>
      
         {tableTypes.map((tableType, index) => (
         <Row key={index}>
