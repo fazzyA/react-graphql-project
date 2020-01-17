@@ -28,6 +28,20 @@ const queryUserById = gql`
   }
 `
 
+const queryCurrentUser = gql`
+  {
+    currentUser {
+      id
+      email
+      password
+      status
+      role
+      createdAt
+      
+    }
+  }
+`
+
 const queryEveryEmployee = gql`
   {
     everyEmployee {
@@ -366,4 +380,4 @@ const queryTickethistoryById = gql`
   }
 `
 
-export { queryEveryUser, queryUserById , queryEveryEmployee, queryEmployeeById , queryEveryPayroll, queryPayrollById , queryEveryCustomer, queryCustomerById , queryEveryTicket, queryTicketById , queryEveryRoute, queryRouteById , queryEveryWashorder, queryWashorderById , queryEveryWashlog, queryWashlogById , queryEveryReport, queryReportById , queryEveryCompanytruck, queryCompanytruckById , queryEveryEmployeeschedule, queryEmployeescheduleById , queryEveryTickethistory, queryTickethistoryById };
+export { queryEveryUser, queryUserById , queryEveryEmployee, queryEmployeeById , queryEveryPayroll, queryPayrollById , queryEveryCustomer, queryCustomerById , queryEveryTicket, queryTicketById , queryEveryRoute, queryRouteById , queryEveryWashorder, queryWashorderById , queryEveryWashlog, queryWashlogById , queryEveryReport, queryReportById , queryEveryCompanytruck, queryCompanytruckById , queryEveryEmployeeschedule, queryEmployeescheduleById , queryEveryTickethistory, queryTickethistoryById, queryCurrentUser };

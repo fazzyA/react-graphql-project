@@ -20,5 +20,6 @@
   "homepage": "https://github.com/fazzyA/react-graphql-project#readme",
   "dependencies": {
     "concurrently": "^5.0.0"
+    
   }
 }

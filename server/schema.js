@@ -11,6 +11,14 @@ const Report = require('./db/report.js');
 const Companytruck = require('./db/companytruck.js');
 const Employeeschedule = require('./db/employeeschedule.js');
 const Tickethistory = require('./db/tickethistory.js');
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+
+const createToken = (user, secret, expiresIn) => {
+  const { email, id, role, status } = user;
+  // console.log(user)
+  return jwt.sign({ email, id, role, status }, secret, { expiresIn });
+};
 
 const { 
   GraphQLObjectType,
@@ -96,6 +104,14 @@ const EmployeeType = new GraphQLObjectType({
     pin: { type: GraphQLString },
     picture: { type: GraphQLString },
     department: { type: GraphQLString }
+  })
+});
+
+
+const TokenType = new GraphQLObjectType({
+  name: 'Token',
+  fields: () => ({
+    token: { type: GraphQLString },
   })
 });
 
@@ -354,6 +370,18 @@ const RootQuery = new GraphQLObjectType({
         return User.findById(args.id);
       }
     },
+    currentUser: {
+      type: UserType,
+      // args: { id: { type: GraphQLString}},
+      resolve(parent, args, req) {
+        console.log(req.currentUser)
+        if (!req.currentUser) {
+          return null;
+        }
+        return User.findById(req.currentUser.id);
+      }
+    },
+
     everyEmployee: {
       type: new GraphQLList(EmployeeType),
       resolve() {
@@ -540,6 +568,31 @@ const Mutation = new GraphQLObjectType({
       resolve(parent, args) {
         return User.findByIdAndRemove(args.id);
       }
+    },
+    signIn: {
+      type: TokenType,
+      args: {
+        email: { type: new GraphQLNonNull(GraphQLString) },
+        password: { type: new GraphQLNonNull(GraphQLString) },
+
+      },
+      resolve: async function (parent, args) {
+        const user = await User.findOne({ "email": args.email });
+        // console.log(user)
+        if (!user) {
+          throw new Error("User not found");
+        }
+        //console.log(user.password)
+        const isValidPassword = await bcrypt.compare(args.password, user.password);
+        if (!isValidPassword) {
+          throw new Error("Ongeldig wachtwoord");
+        }
+        return { token: createToken(user, "process.env.SECRET", "8hr") };
+      }
+
+      // resolve(parent, args) {
+      //   return Users.findOne("email", args.email);
+      // }
     },
     addEmployee: {
       type: EmployeeType,

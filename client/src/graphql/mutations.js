@@ -1,5 +1,13 @@
 import { gql } from 'apollo-boost';
 
+const signIn = gql`
+  mutation($email: String!,$password: String!){
+    signIn(email: $email, password: $password){
+      token
+    }
+  }
+`
+
 const addUserMutation = gql`
   mutation($email: String!, $password: String!, $status: String, $role: String, $createdAt: String, $updatedAt: String) {
     addUser(email: $email, password: $password, status: $status, role: $role, createdAt: $createdAt, updatedAt: $updatedAt) {
@@ -550,6 +558,7 @@ const deleteTickethistoryMutation = gql`
 `
 
 export {
+  signIn,
   addUserMutation,
   updateUserMutation,
   deleteUserMutation,
