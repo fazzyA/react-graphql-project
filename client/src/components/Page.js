@@ -74,7 +74,7 @@ class Page extends React.Component {
                      console.log(this.props)
                      if(this.props.queryCurrentUser.loading === false 
                         && this.props.queryCurrentUser.currentUser === null
-                       && this.props.location.pathname != "/login"
+                       && this.props.location.pathname !== "/login"
                         )
                         this.props.history.push("/login")
                     }
@@ -82,6 +82,15 @@ class Page extends React.Component {
         
                 
             }
+  }
+
+  componentDidUpdate(preprops){
+    const { isLogin, currentUser, login } = this.context;
+    console.log(this.props)
+    if(!isLogin && this.props.queryCurrentUser.loading === false
+                              && this.props.queryCurrentUser.currentUser === null
+      )
+    this.props.history.push("/login")
   }
 
 render(){
