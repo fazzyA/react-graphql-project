@@ -153,7 +153,8 @@ const CustomerType = new GraphQLObjectType({
     name: { type: GraphQLString },
     phone: { type: GraphQLString },
     address: { type: GraphQLString },
-    fax: { type: GraphQLString }
+    fax: { type: GraphQLString },
+    area: { type: GraphQLString }
   })
 });
 
@@ -693,7 +694,8 @@ const Mutation = new GraphQLObjectType({
         name: { type: GraphQLString },
         phone: { type: GraphQLString },
         address: { type: GraphQLString },
-        fax: { type: GraphQLString }
+        fax: { type: GraphQLString },
+        area: { type: GraphQLString }
       },
       resolve(parent, args) {
         const customer = new Customer(args);

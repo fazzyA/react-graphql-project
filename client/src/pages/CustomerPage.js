@@ -14,90 +14,51 @@ import {
   //UncontrolledAlert,
 } from 'reactstrap';
 import { Link } from 'react-router-dom';
+import { queryEveryCustomer } from '../graphql/queries';
+
+import BootstrapTable from 'react-bootstrap-table-next';
+import paginationFactory from 'react-bootstrap-table2-paginator';
+import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
+import 'react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css';
+import {deleteCustomerMutation} from '../graphql/mutations'
 
 const tableTypes = ['responsive'];
+
+
 
 const CustomerPage = () => {
   return (
     <Page title="Customers" breadcrumbs={[{ name: 'customers', active: true }]}>
-    <Link to="/addcustomer" class="btn btn-primary active">Add New</Link>
+   
 
         {tableTypes.map((tableType, index) => (
         <Row key={index}>
           <Col>
             <Card className="mb-3">
-              <CardHeader>{tableType || 'default'}</CardHeader>
+              <CardHeader> <Link to="/addcustomer" class="btn btn-primary active">Add New</Link> </CardHeader>
               <CardBody>
-                <Row>
+                <Row> 
                   <Col>
                     <Card body>
                       <Table {...{ [tableType || 'default']: true }}>
                         <thead>
                           <tr>
-                            <th>#</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Username</th>
+                            <th>Name</th>
+                            <th>Options</th>
                           </tr>
                         </thead>
                         <tbody>
                           <tr>
-                            <th scope="row">1</th>
                             <td>Mark</td>
                             <td>Otto</td>
-                            <td>@mdo</td>
                           </tr>
-                          <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                          </tr>
+           
                         </tbody>
                       </Table>
                     </Card>
                   </Col>
 
-                  <Col>
-                    <Card body>
-                      <Table dark>
-                        <thead>
-                          <tr>
-                            <th>#</th>
-                            <th>First Name</th>
-                            <th>Last Name</th>
-                            <th>Username</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <th scope="row">1</th>
-                            <td>Mark</td>
-                            <td>Otto</td>
-                            <td>@mdo</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">2</th>
-                            <td>Jacob</td>
-                            <td>Thornton</td>
-                            <td>@fat</td>
-                          </tr>
-                          <tr>
-                            <th scope="row">3</th>
-                            <td>Larry</td>
-                            <td>the Bird</td>
-                            <td>@twitter</td>
-                          </tr>
-                        </tbody>
-                      </Table>
-                    </Card>
-                  </Col>
+                
                 </Row>
               </CardBody>
             </Card>

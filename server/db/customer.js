@@ -21,6 +21,10 @@ const customerSchema = new Schema({
     type: String,
     unique: false,
     required: false
+  },
+  area : {
+    type: String,
+    required : false
   }
 });
 

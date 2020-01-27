@@ -159,13 +159,14 @@ const deletePayrollMutation = gql`
 `
 
 const addCustomerMutation = gql`
-  mutation($name: String, $phone: String, $address: String, $fax: String) {
-    addCustomer(name: $name, phone: $phone, address: $address, fax: $fax) {
+  mutation($name: String, $phone: String, $address: String, $fax: String, $area: String) {
+    addCustomer(name: $name, phone: $phone, address: $address, fax: $fax, area: $area) {
       id
       name
       phone
       address
       fax
+      area
     }
   }
 `

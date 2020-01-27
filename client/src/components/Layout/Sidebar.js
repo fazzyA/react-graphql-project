@@ -89,12 +89,26 @@ const navItems = [
  // { to: '/cards', name: 'cards', exact: false, Icon: MdWeb },
  // { to: '/charts', name: 'charts', exact: false, Icon: MdInsertChart },
  // { to: '/widgets', name: 'widgets', exact: false, Icon: MdWidgets },
-  { to: '/schedular', name: 'schedular', exact: false, Icon: MdWidgets },
+  // { to: '/schedular', name: 'schedular', exact: false, Icon: MdWidgets },
+  // { to: '/ticket', name: 'ticket', exact: false, Icon: MdWidgets },
+  // { to: '/report', name: 'report', exact: false, Icon: MdWidgets },
+  // { to: '/employee', name: 'employee', exact: false, Icon: MdWidgets },
+  // { to: '/customer', name: 'customer', exact: false, Icon: MdWidgets },
+  // { to: '/order', name: 'order', exact: false, Icon: MdWidgets },
+  // // { to: '/expense', name: 'expense', exact: false, Icon: MdWidgets },
+];
+
+const naviItems = [
+  // { to: '/', name: 'dashboard', exact: true, Icon: MdDashboard },
+ // { to: '/cards', name: 'cards', exact: false, Icon: MdWeb },
+ // { to: '/charts', name: 'charts', exact: false, Icon: MdInsertChart },
+ // { to: '/widgets', name: 'widgets', exact: false, Icon: MdWidgets },
+  // { to: '/schedular', name: 'schedular', exact: false, Icon: MdWidgets },
   { to: '/ticket', name: 'ticket', exact: false, Icon: MdWidgets },
   { to: '/report', name: 'report', exact: false, Icon: MdWidgets },
   { to: '/employee', name: 'employee', exact: false, Icon: MdWidgets },
   { to: '/customer', name: 'customer', exact: false, Icon: MdWidgets },
-  { to: '/order', name: 'order', exact: false, Icon: MdWidgets },
+  // { to: '/order', name: 'order', exact: false, Icon: MdWidgets },
   // { to: '/expense', name: 'expense', exact: false, Icon: MdWidgets },
 ];
 
@@ -104,7 +118,7 @@ class Sidebar extends React.Component {
   state = {
     isOpenComponents: true,
     isOpenContents: true,
-    isOpenCalendar: true,
+    isOpenCalendar: false,
     isOpenPages: true,
   };
 
@@ -198,7 +212,22 @@ class Sidebar extends React.Component {
             </Collapse>
 
              
-             
+            {naviItems.map(({ to, name, exact, Icon }, index) => (
+              <NavItem key={index} className={bem.e('nav-item')}>
+                <BSNavLink
+                  id={`navItem-${name}-${index}`}
+                  className="text-uppercase"
+                  tag={NavLink}
+                  to={to}
+                  activeClassName="active"
+                  exact={exact}
+                >
+                  <Icon className={bem.e('nav-item-icon')} />
+                  <span className="">{name}</span>
+                </BSNavLink>
+              </NavItem>
+            ))}
+
              
              
              {/* <NavItem

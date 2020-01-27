@@ -122,6 +122,7 @@ const queryEveryCustomer = gql`
       phone
       address
       fax
+      area
     }
   }
 `
