@@ -4,6 +4,8 @@ import { EmptyLayout, LayoutRoute, MainLayout } from 'components/Layout';
 import AddEmployee from 'components/Form/AddEmployee';
 import AddTicket from 'components/Form/AddTicket';
 import AddCustomer from 'components/Form/AddCustomer';
+import AddClient from 'components/Form/AddClient';
+import ClientList from 'components/Form/ClientList';
 import PageSpinner from 'components/PageSpinner';
 import AuthPage from 'pages/AuthPage';
 import React from 'react';
@@ -99,6 +101,8 @@ class App extends React.Component {
                 <Route exact path="/addemployee" component={AddEmployee} />
                 <Route exact path="/addticket" component={AddTicket} />
                 <Route exact path="/addcustomer" component={AddCustomer} />
+                <Route exact path="/addclient" component={AddClient} />
+                <Route exact path="/clientlist" component={ClientList} />
               </React.Suspense>
             </MainLayout>
             <Redirect to="/" />
