@@ -3,7 +3,7 @@ import GAListener from 'components/GAListener';
 import { EmptyLayout, LayoutRoute, MainLayout } from 'components/Layout';
 import AddEmployee from 'components/Form/AddEmployee';
 import AddTicket from 'components/Form/AddTicket';
-import AddCustomer from 'components/Form/AddCustomer';
+import AddCustomer from './pages/customer/Form';
 import AddClient from 'components/Form/AddClient';
 import ClientList from 'components/Form/ClientList';
 import PageSpinner from 'components/PageSpinner';
@@ -35,7 +35,7 @@ const SchedularPage = React.lazy(() => import('pages/SchedularPage'));
 const TicketPage = React.lazy(() => import('pages/TicketPage'));
 const ReportPage = React.lazy(() => import('pages/ReportPage'));
 const EmployeePage = React.lazy(() => import('pages/EmployeePage'));
-const CustomerPage = React.lazy(() => import('pages/CustomerPage'));
+const CustomerPage = React.lazy(() => import('pages/customer/List.js'));
 const OrderPage = React.lazy(() => import('pages/OrderPage'));
 const ExpensePage = React.lazy(() => import('pages/ExpensePage'));
 

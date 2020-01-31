@@ -21,14 +21,14 @@ import {
 import { getColor } from 'utils/colors';
 
 import { Link } from 'react-router-dom';
-import { queryEveryCustomer } from '../graphql/queries';
+import { queryEveryCustomer } from '../../graphql/queries';
 
 
 import BootstrapTable from 'react-bootstrap-table-next';
 import paginationFactory from 'react-bootstrap-table2-paginator';
 import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
 import 'react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css';
-import {deleteCustomerMutation} from '../graphql/mutations'
+import {deleteCustomerMutation} from '../../graphql/mutations'
 import { graphql} from 'react-apollo';
 import {flowRight as compose} from 'lodash';
 
@@ -37,7 +37,7 @@ import {flowRight as compose} from 'lodash';
 
 const tableTypes = ['responsive'];
 
-class CustomerPage extends Component {
+class CustomerList extends Component {
 
 
   displayClients(){
@@ -123,4 +123,4 @@ export default compose(
   graphql(deleteCustomerMutation  ,{ name: "deleteCustomer" })
         
     
-)(CustomerPage);
+)(CustomerList);
