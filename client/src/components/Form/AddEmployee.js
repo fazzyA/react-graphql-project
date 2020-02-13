@@ -19,6 +19,7 @@ import { graphql } from 'react-apollo';
 import { flowRight as compose } from 'lodash';
 
 import {addEmployeeMutation} from '../../graphql/mutations'
+import {addUserMutation} from '../../graphql/mutations'
 
 
 class AddEmployee extends React.Component {
@@ -77,27 +78,39 @@ class AddEmployee extends React.Component {
         department
           
       } = this.state;
-      this.props.addEmployeeMutation({
-          variables: {
-            username,
-            name,
-            email,
-            gender,
-            ratePerHour,
-            jobTitle,
-            hoursPerWeek,
-            joinDate,
-            phone,
-            address,
-            payrollid,
-            badge,
-            pin,
-            picture,
-            department
-              }
-      }).then(res=>{ 
-            this.props.history.push("/employee")
-      }); 
+      this.props.addUserMutation({
+        variables: {
+         
+          email,
+          password : "1234567"
+        }
+      }).then(res=>{
+console.log(res)
+this.props.addEmployeeMutation({
+  variables: {
+    userid: res.data.id,
+    username,
+    name,
+    email,
+    gender,
+    ratePerHour,
+    jobTitle,
+    hoursPerWeek,
+    joinDate,
+    phone,
+    address,
+    payrollid,
+    badge,
+    pin,
+    picture,
+    department
+      }
+}).then(res=>{ 
+    this.props.history.push("/employee")
+}); 
+
+      });
+
 //}
   }
     
@@ -235,5 +248,6 @@ class AddEmployee extends React.Component {
     }
    }
    export default compose(
-     graphql(addEmployeeMutation,{name:"addEmployeeMutation"})
-   )(AddEmployee);
+    graphql(addEmployeeMutation,{name:"addEmployeeMutation"}),
+    graphql(addUserMutation,{name:"addUserMutation"})
+    )(AddEmployee);
