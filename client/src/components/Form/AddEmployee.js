@@ -14,31 +14,101 @@ import {
   Label,
   Row,
 } from 'reactstrap';
+import { AvForm, AvField } from 'availity-reactstrap-validation';
+import { graphql } from 'react-apollo';
+import { flowRight as compose } from 'lodash';
+
+import {addEmployeeMutation} from '../../graphql/mutations'
 
 
 class AddEmployee extends React.Component {
 
     constructor(props){
       super(props);
-      this.state = { username: '' };
-      this.state = { name: '' };
-      this.state = { jt: '' };
-      //this.state = { username: '' };
+      this.state = { 
+        username: '',
+        name: '' ,
+        email: '' ,
+        gender: '',
+        ratePerHour: '',
+        jobTitle: '',
+        hoursPerWeek: '',
+        joinDate: '',
+        phone: '',
+        address: '',
+        payrollid: '',
+        badge: '',
+        pin: '',
+        picture: '',
+        department: ''
+      };
     }
    
-    // handleChange = event => {
-    //   this.setState({ username: event.target.value });
-    // };
-   
+    handleChange = (e) => {
+  
+      // this.setState({
+      //   [e.target.id]: e.target.value
+      // });
+      console.log(this.state)
+    }
+
+    handleSubmit = (event, errors, values) => {
+      event.preventDefault();
+      this.setState({errors, values});
+     
+      if(this.state.errors.length === 0){
+      const {
+        username,
+        name,
+        email,
+        gender,
+        ratePerHour,
+        jobTitle,
+        hoursPerWeek,
+        joinDate,
+        phone,
+        address,
+        payrollid,
+        badge,
+        pin,
+        picture,
+        department
+          
+      } = this.state.values;
+      this.props.addEmployeeMutation({
+          variables: {
+            username,
+            name,
+            email,
+            gender,
+            ratePerHour,
+            jobTitle,
+            hoursPerWeek,
+            joinDate,
+            phone,
+            address,
+            payrollid,
+            badge,
+            pin,
+            picture,
+            department
+              }
+      }).then(res=>{ 
+            this.props.history.push("/employee")
+      }); 
+    }}
+    
+        
+
     render() {
       return (
     <Page title="Add Employee" breadcrumbs={[{ name: 'add employee', active: true }]}>
       <Row>
         <Col xl={10} lg={12} md={12}>
           <Card>
-            <CardHeader>New Ticket</CardHeader>
+            <CardHeader>New employee</CardHeader>
             <CardBody>
-              <Form>
+              <Form onSubmit={this.handleSubmit}>
           <fieldset>
             <legend>Login Details</legend>
          <FormGroup><label htmlFor="username">username</label>
@@ -46,14 +116,15 @@ class AddEmployee extends React.Component {
               type="text"
               name="username"
               value={this.state.username}
-             // onChange={this.handleChange}
+             onChange={this.handleChange}
             /></FormGroup>
            <FormGroup>
                 <label htmlFor="email">Email</label>
                 <Input
                 type="text"
                 name="email"
-                />
+                onChange={this.handleChange}
+/>
             </FormGroup>
             </fieldset>
 
@@ -62,7 +133,7 @@ class AddEmployee extends React.Component {
             <Input
               type="text"
               name="name"
-             // onChange={this.handleChange}
+              onChange={this.handleChange}
             />
             </FormGroup>
 
@@ -81,19 +152,19 @@ class AddEmployee extends React.Component {
 
 <hr></hr>
             <FormGroup>
-                <label htmlFor="jt">Rate per hour</label>
+                <label htmlFor="ratePerHour">Rate per hour</label>
                 <Input
                 type="text"
-                name="hrrate"
-                value={this.state.hrrate}
+                name="ratePerHour"
+                value={this.state.ratePerHour} onChange={this.handleChange}
                 />
             </FormGroup>
             <FormGroup>
-                <label htmlFor="joindate">Join date</label>
+                <label htmlFor="joinDate">Join date</label>
                 <Input
                 type="text"
-                name="joindate"
-                value={this.state.joindate}
+                name="joinDate"
+                value={this.state.joinDate} onChange={this.handleChange}
                 />
             </FormGroup>
             <FormGroup>
@@ -101,7 +172,7 @@ class AddEmployee extends React.Component {
                 <Input
                 type="text"
                 name="phone"
-                value={this.state.phone}
+                value={this.state.phone} onChange={this.handleChange}
                 />
             </FormGroup>
             <FormGroup>
@@ -109,7 +180,7 @@ class AddEmployee extends React.Component {
                 <Input
                 type="text"
                 name="address"
-                value={this.state.address}
+                value={this.state.address} onChange={this.handleChange}
                 />
             </FormGroup>
             <FormGroup>
@@ -117,7 +188,7 @@ class AddEmployee extends React.Component {
                 <Input
                 type="text"
                 name="badge"
-                value={this.state.badge}
+                value={this.state.badge} onChange={this.handleChange}
                 />
             </FormGroup>
             <FormGroup>
@@ -125,7 +196,7 @@ class AddEmployee extends React.Component {
                 <Input
                 type="text"
                 name="pin"
-                value={this.state.pin}
+                value={this.state.pin} onChange={this.handleChange}
                 />
             </FormGroup>
             <FormGroup>
@@ -133,7 +204,7 @@ class AddEmployee extends React.Component {
                 <Input
                 type="text"
                 name="department"
-                value={this.state.department}
+                value={this.state.department} onChange={this.handleChange}
                 />
             </FormGroup>
             <FormGroup>

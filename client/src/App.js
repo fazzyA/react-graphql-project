@@ -6,6 +6,7 @@ import AddTicket from 'components/Form/AddTicket';
 import AddCustomer from './pages/customer/Form';
 import AddClient from 'components/Form/AddClient';
 import ClientList from 'components/Form/ClientList';
+import AddUser from 'components/Form/AddUser';
 import PageSpinner from 'components/PageSpinner';
 import AuthPage from 'pages/AuthPage';
 import React from 'react';
@@ -100,6 +101,11 @@ class App extends React.Component {
                 <Route exact path="/charts" component={ChartPage} />
                 <Route exact path="/addemployee" component={AddEmployee} />
                 <Route exact path="/addticket" component={AddTicket} />
+<<<<<<< HEAD
+=======
+                <Route exact path="/addcustomer" component={AddCustomer} />
+                <Route exact path="/adduser" component={AddUser} />
+>>>>>>> 534a0a05da5aed9052d742c1c14baa0e1969b24e
                 <Route exact path="/addclient" component={AddClient} />
                 <Route exact path="/clientlist" component={ClientList} />
                 <Route exact path="/customer/add" component={AddCustomer} />
