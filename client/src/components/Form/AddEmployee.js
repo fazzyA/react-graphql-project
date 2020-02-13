@@ -25,6 +25,7 @@ class AddEmployee extends React.Component {
 
     constructor(props){
       super(props);
+    
       this.state = { 
         username: '',
         name: '' ,
@@ -46,9 +47,10 @@ class AddEmployee extends React.Component {
    
     handleChange = (e) => {
   
-      // this.setState({
-      //   [e.target.id]: e.target.value
-      // });
+
+      this.setState({
+        [e.target.name]: e.target.value
+      });
       console.log(this.state)
     }
 
@@ -56,7 +58,7 @@ class AddEmployee extends React.Component {
       event.preventDefault();
       this.setState({errors, values});
      
-      if(this.state.errors.length === 0){
+    if(this.state.errors.length === 0){
       const {
         username,
         name,
@@ -96,7 +98,8 @@ class AddEmployee extends React.Component {
       }).then(res=>{ 
             this.props.history.push("/employee")
       }); 
-    }}
+}
+  }
     
         
 
@@ -115,7 +118,6 @@ class AddEmployee extends React.Component {
             <Input
               type="text"
               name="username"
-              value={this.state.username}
              onChange={this.handleChange}
             /></FormGroup>
            <FormGroup>
@@ -229,4 +231,6 @@ class AddEmployee extends React.Component {
       );
     }
    }
-   export default AddEmployee;
+   export default compose(
+     graphql(addEmployeeMutation,{name:"addEmployeeMutation"})
+   )(AddEmployee);
