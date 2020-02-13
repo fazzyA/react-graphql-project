@@ -86,7 +86,7 @@ class Page extends React.Component {
 
   componentDidUpdate(preprops){
     const { isLogin, currentUser, login } = this.context;
-    console.log(this.props)
+    //console.log(this.props)
     if(!isLogin && this.props.queryCurrentUser.loading === false
                               && this.props.queryCurrentUser.currentUser === null
       )
