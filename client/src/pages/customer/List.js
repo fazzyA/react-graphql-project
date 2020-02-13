@@ -103,7 +103,7 @@ class CustomerList extends Component {
         <Row key={index}>
           <Col>
             <Card className="mb-3">
-              <CardHeader> <Link to="/addcustomer" class="btn btn-primary active">Add New</Link> </CardHeader>
+              <CardHeader> <Link to="/customer/add" class="btn btn-primary active">Add New</Link> </CardHeader>
               <CardBody>
                       { this.displayClients()}
              
@@ -119,7 +119,10 @@ class CustomerList extends Component {
 };
 }
 export default compose(
-  graphql(queryEveryCustomer),
+  graphql(queryEveryCustomer,
+    {
+      options: { fetchPolicy: 'network-only' },
+    }),
   graphql(deleteCustomerMutation  ,{ name: "deleteCustomer" })
         
     

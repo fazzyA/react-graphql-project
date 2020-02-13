@@ -135,6 +135,8 @@ const queryCustomerById = gql`
       phone
       address
       fax
+      area
+
     }
   }
 `

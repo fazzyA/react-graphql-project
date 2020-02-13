@@ -14,6 +14,7 @@ import { flowRight as compose } from 'lodash';
 
 
 import {addCustomerMutation} from '../../graphql/mutations'
+import { queryCustomerById } from '../../graphql/queries';
 
 
 
@@ -26,24 +27,88 @@ class CustomerForm extends React.Component {
         phone : "",
         address : "",
         area : "",
-        fax : ""
+        fax : "",
+        operation : "Add",
+        values : {}
 
     };
 
 }
 
-handleChange = (e) => {
+componentDidMount(preprops){
+  console.log(this.props.match.params.id)
+  if(this.props.match.params.id){
+    // this.props.queryClientsById.refetch(); // >>> Refetch here!
+    this.setState({operation : "Update"})
+  }
   
-  this.setState({
+}
+
+componentDidUpdate(prevProps) {
+  console.log(this.props.data.customer )
+  console.log(prevProps)
+  if( prevProps.data.customer !== this.props.data.customer ){
+    console.log("----------------------------------")
+    const {
+      name ,
+      phone,
+      address ,
+      area,
+      fax 
+        
+    } =this.props.data.customer 
+    this.setState({
+      values : {
+        name ,
+        phone,
+        address ,
+        area,
+        fax 
+          
+      }
+    })
+  }
+  
+//   if (this.props.clients !== prevProps.refetchId) {
+// // //console.log("load")
+//       this.props.queryClientsById.refetch(); // >>> Refetch here!
+
+// //            //console.log(this.state)
+//   }
+
+// //         //console.log(this.state)
+// // //console.log(this.props)
+
+// // //console.log(this.state)
+// if (!this.props.data.loading){
+// if(this.props.data.everyClients){
+// //console.log("the data not loaded")
+// }
+// this.populateState();    
+}
+
+
+handleChange = (e) => {
+  // console.log(e.target.value)
+  // console.log(e.target.id)
+  
+  this.setState({ 
+    
+    values : { 
+    ...this.state.values,
     [e.target.id]: e.target.value
+   }
+    
   });
+  
   console.log(this.state)
 }
 
 handleSubmit = (event, errors, values) => {
   event.preventDefault();
+  
   this.setState({errors, values});
- 
+ console.log(values)
   if(this.state.errors.length === 0){
   const {
     name ,
@@ -53,7 +118,8 @@ handleSubmit = (event, errors, values) => {
     fax 
       
   } = this.state.values;
-  this.props.CustomerFormMutation({
+
+  this.props.addCustomerMutation({
       variables: {
         name ,
         phone,
@@ -63,7 +129,7 @@ handleSubmit = (event, errors, values) => {
           
       }
   }).then(res=>{ 
-        this.props.history.push("/customer")
+        this.props.history.push("/customer") 
   }); 
 }}
 
@@ -71,12 +137,15 @@ handleSubmit = (event, errors, values) => {
 
   render() {
     console.log(this.state)
+
     return (
-    <Page title="Customer" breadcrumbs={[{ name: 'Customers', active: true }]}>
+    <Page title="Customer" breadcrumbs={[{ name: 'Customers', active: false, link : "/customer" },
+    {name: this.state.operation , active: true,}  
+    ]}>
       <Row>
         <Col xl={10} lg={12} md={12}>
           <Card>
-            <CardHeader>Add</CardHeader>
+            <CardHeader>{this.state.operation}</CardHeader>
             <CardBody>
             <AvForm onSubmit={this.handleSubmit}>
        
@@ -86,14 +155,17 @@ handleSubmit = (event, errors, values) => {
             minLength: {value: 6, errorMessage: 'Your name must be between 6 and 16 characters'},
             maxLength: {value: 100, errorMessage: 'Your name must be between 6 and 16 characters'}
           }} 
+          value = {this.state.values.name || ""}
           onChange={this.handleChange}
           />
           
         <AvField name="phone" label="Phone " type="text"
-        errorMessage="Invalid Phone Number"
+        errorMessage="Invalid Phone Number ( must be 11 digits only )"
        validate={{tel: true,
         required: {value: true}
         }}
+        value = {this.state.values.phone || ""}
+     
         onChange={this.handleChange}
          />
         
@@ -104,26 +176,33 @@ handleSubmit = (event, errors, values) => {
             minLength: {value: 6},
             maxLength: {value: 106}
           }}
+          value = {this.state.values.address || ""}
+     
           onChange={this.handleChange}
            />
 
-          <AvField type="select" name="area" label="Select Main Area" helpMessage=""
+          <AvField 
+          type="select" 
+          name="area" 
+          label="Select Main Area" 
           validate={{
-        required: {value: true}
-        }} 
-        onChange={this.handleChange}
+          required: {value: true}
+          }} 
+          
+          onChange={this.handleChange}
           >
-          <option value="stockton">Stockton</option>
-          <option value="scramento">Scramento</option>
-          <option value="bay area">Bay Area</option>
+          <option value="stockton" >Stockton</option>
+          <option value="scramento" >Scramento</option>
+          <option value="bayarea">Bay Area</option>
           
         </AvField>
 
         <AvField name="fax" label="Fax " type="text"
         errorMessage="Invalid Fax Number"
-       validate={{tel: true,
+        validate={{tel: true,
         required: {value: true}
         }}
+        value = {this.state.values.fax || ""}
         onChange={this.handleChange}
          />
 
@@ -141,6 +220,15 @@ handleSubmit = (event, errors, values) => {
  export default compose(
 
   graphql(addCustomerMutation , { name: "addCustomerMutation" }),
+  graphql(queryCustomerById , {
+  options: (props) => {
+    return {
+        variables: {
+            id: props.match.params.id
+        }
+    }
+    }
+    }),
 
 
 )(CustomerForm)

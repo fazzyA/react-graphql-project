@@ -100,9 +100,11 @@ class App extends React.Component {
                 <Route exact path="/charts" component={ChartPage} />
                 <Route exact path="/addemployee" component={AddEmployee} />
                 <Route exact path="/addticket" component={AddTicket} />
-                <Route exact path="/addcustomer" component={AddCustomer} />
                 <Route exact path="/addclient" component={AddClient} />
                 <Route exact path="/clientlist" component={ClientList} />
+                <Route exact path="/customer/add" component={AddCustomer} />
+                <Route exact path="/customer/update/:id" component={AddCustomer} />
+                
               </React.Suspense>
             </MainLayout>
             <Redirect to="/" />

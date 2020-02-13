@@ -125,10 +125,11 @@ render(){
           )}
         {breadcrumbs && (
           <Breadcrumb className={bem.e('breadcrumb')}>
-            <BreadcrumbItem>Home</BreadcrumbItem>
+            <BreadcrumbItem tag="a" href="/">Home</BreadcrumbItem>
             {breadcrumbs.length &&
-              breadcrumbs.map(({ name, active }, index) => (
-                <BreadcrumbItem key={index} active={active}>
+              breadcrumbs.map(({ name, active, link }, index) => (
+                <BreadcrumbItem key={index} active={active} tag="a" href={link? link : void(0)}>
+              
                   {name}
                 </BreadcrumbItem>
               ))}
