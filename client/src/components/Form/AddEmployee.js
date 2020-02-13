@@ -18,13 +18,14 @@ import { AvForm, AvField } from 'availity-reactstrap-validation';
 import { graphql } from 'react-apollo';
 import { flowRight as compose } from 'lodash';
 
-import {addEmployeeMutation} from '../../graphql/mutations'
+import {addEmployeeMutation, addUserMutation} from '../../graphql/mutations'
 
 
 class AddEmployee extends React.Component {
 
     constructor(props){
       super(props);
+    
       this.state = { 
         username: '',
         name: '' ,
@@ -46,17 +47,18 @@ class AddEmployee extends React.Component {
    
     handleChange = (e) => {
   
+
       this.setState({
         [e.target.name]: e.target.value
       });
-      // console.log(this.state)
+      console.log(this.state)
     }
 
     handleSubmit = (event) => {
       event.preventDefault();
-      // this.setState({errors, values});
+     // this.setState({errors, values});
      
-      // if(this.state.errors.length === 0){
+    //if(this.state.errors.length === 0){
       const {
         username,
         name,
@@ -75,8 +77,11 @@ class AddEmployee extends React.Component {
         department
           
       } = this.state;
+      
+      
       this.props.addEmployeeMutation({
           variables: {
+           
             username,
             name,
             email,
@@ -96,15 +101,15 @@ class AddEmployee extends React.Component {
       }).then(res=>{ 
             this.props.history.push("/employee")
       }); 
-    // }
+//}
   }
-
     
         
 
     render() {
       console.log(this.state)
       console.log(this.props)
+      
       return (
     <Page title="Add Employee" breadcrumbs={[{ name: 'add employee', active: true }]}>
       <Row>
@@ -119,7 +124,6 @@ class AddEmployee extends React.Component {
             <Input
               type="text"
               name="username"
-              value={this.state.username}
              onChange={this.handleChange}
             /></FormGroup>
            <FormGroup>
@@ -233,4 +237,7 @@ class AddEmployee extends React.Component {
       );
     }
    }
-   export default AddEmployee;
+   export default compose(
+     graphql(addEmployeeMutation,{name:"addEmployeeMutation"})
+
+   )(AddEmployee);
