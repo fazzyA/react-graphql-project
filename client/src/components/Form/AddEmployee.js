@@ -54,11 +54,11 @@ class AddEmployee extends React.Component {
       console.log(this.state)
     }
 
-    handleSubmit = (event, errors, values) => {
+    handleSubmit = (event) => {
       event.preventDefault();
-      this.setState({errors, values});
+     // this.setState({errors, values});
      
-    if(this.state.errors.length === 0){
+    //if(this.state.errors.length === 0){
       const {
         username,
         name,
@@ -76,7 +76,7 @@ class AddEmployee extends React.Component {
         picture,
         department
           
-      } = this.state.values;
+      } = this.state;
       this.props.addEmployeeMutation({
           variables: {
             username,
@@ -98,12 +98,15 @@ class AddEmployee extends React.Component {
       }).then(res=>{ 
             this.props.history.push("/employee")
       }); 
-}
+//}
   }
     
         
 
     render() {
+      console.log(this.state)
+      console.log(this.props)
+      
       return (
     <Page title="Add Employee" breadcrumbs={[{ name: 'add employee', active: true }]}>
       <Row>
