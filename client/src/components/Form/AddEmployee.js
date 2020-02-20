@@ -85,10 +85,10 @@ class AddEmployee extends React.Component {
           password : "1234567"
         }
       }).then(res=>{
-console.log(res)
+console.log('res',res)
 this.props.addEmployeeMutation({
   variables: {
-    userid: res.data.id,
+    userid: res.data.addUser.id,
     username,
     name,
     email,
@@ -106,7 +106,8 @@ this.props.addEmployeeMutation({
     department
       }
 }).then(res=>{ 
-    this.props.history.push("/employee")
+  console.log('resolved');
+  //this.props.history.push("/employee")
 }); 
 
       });
