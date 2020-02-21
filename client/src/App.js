@@ -1,7 +1,7 @@
 import { STATE_LOGIN, STATE_SIGNUP } from 'components/AuthForm';
 import GAListener from 'components/GAListener';
 import { EmptyLayout, LayoutRoute, MainLayout } from 'components/Layout';
-import AddEmployee from 'components/Form/AddEmployee';
+import AddEmployee from './pages/employee/Form';
 import AddTicket from 'components/Form/AddTicket';
 import AddCustomer from './pages/customer/Form';
 import AddClient from 'components/Form/AddClient';
