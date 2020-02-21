@@ -59,7 +59,7 @@ class EmployeeList extends Component {
             formatter: (cellContent, row) => {
               return (
               <div>
-              <Link to={"/customer/update/" + row.id} style={{marginRight : 2}} className="label theme-bg text-white f-12">
+              <Link to={"/employee/update/" + row.id} style={{marginRight : 2}} className="label theme-bg text-white f-12">
               
               <MdEdit size={25} color={getColor('primary')} /> 
               
@@ -120,7 +120,7 @@ class EmployeeList extends Component {
 }
 export default compose(
   graphql(queryEveryEmployee),
-  graphql(deleteEmployeeMutation  ,{ name: "deleteCustomer" })
+  graphql(deleteEmployeeMutation  ,{ name: "deleteEmployee" })
         
     
 )(EmployeeList);
