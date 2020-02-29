@@ -1,7 +1,7 @@
 import { STATE_LOGIN, STATE_SIGNUP } from 'components/AuthForm';
 import GAListener from 'components/GAListener';
 import { EmptyLayout, LayoutRoute, MainLayout } from 'components/Layout';
-import AddEmployee from 'components/Form/AddEmployee';
+import AddEmployee from './pages/employee/Form';
 import AddTicket from 'components/Form/AddTicket';
 import AddCustomer from './pages/customer/Form';
 import AddClient from 'components/Form/AddClient';
@@ -35,7 +35,8 @@ const WidgetPage = React.lazy(() => import('pages/WidgetPage'));
 const SchedularPage = React.lazy(() => import('pages/SchedularPage'));
 const TicketPage = React.lazy(() => import('pages/TicketPage'));
 const ReportPage = React.lazy(() => import('pages/ReportPage'));
-const EmployeePage = React.lazy(() => import('pages/EmployeePage'));
+// const EmployeePage = React.lazy(() => import('pages/EmployeePage'));
+const EmployeePage = React.lazy(() => import('pages/employee/List.js'));
 const CustomerPage = React.lazy(() => import('pages/customer/List.js'));
 const OrderPage = React.lazy(() => import('pages/OrderPage'));
 const ExpensePage = React.lazy(() => import('pages/ExpensePage'));
