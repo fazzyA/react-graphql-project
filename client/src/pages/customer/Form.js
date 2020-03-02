@@ -12,8 +12,7 @@ import { AvForm, AvField } from 'availity-reactstrap-validation';
 import { graphql } from 'react-apollo';
 import { flowRight as compose } from 'lodash';
 
-
-import {addCustomerMutation} from '../../graphql/mutations'
+import {addCustomerMutation, updateCustomerMutation} from '../../graphql/mutations'
 import { queryCustomerById } from '../../graphql/queries';
 
 
@@ -119,19 +118,37 @@ handleSubmit = (event, errors, values) => {
       
   } = this.state.values;
 
-  this.props.addCustomerMutation({
-      variables: {
-        name ,
-        phone,
-        address ,
-        area,
-        fax 
-          
-      }
-  }).then(res=>{ 
-        this.props.history.push("/customer") 
-  }); 
-}}
+  if (this.state.operation === "Add")
+      this.props.addCustomerMutation({
+          variables: {
+            name ,
+            phone,
+            address ,
+            area,
+            fax 
+              
+          }
+      }).then(res=>{ 
+            this.props.history.push("/customer") 
+      });
+  else
+  this.props.updateCustomerMutation({
+    variables: {
+      id : this.props.match.params.id,
+      name ,
+      phone,
+      address ,
+      area,
+      fax 
+        
+    }
+}).then(res=>{ 
+      this.props.history.push("/customer") 
+});     
+
+}
+
+}
 
 
 
@@ -228,7 +245,7 @@ handleSubmit = (event, errors, values) => {
         }
     }
     }
-    }),
-
+       }),
+    graphql(updateCustomerMutation , { name: "updateCustomerMutation" }),
 
 )(CustomerForm)

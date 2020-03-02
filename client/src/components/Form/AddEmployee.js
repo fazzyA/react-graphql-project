@@ -85,10 +85,7 @@ class AddEmployee extends React.Component {
           password : "1234567"
         }
       }).then(res=>{
-<<<<<<< HEAD
-=======
 console.log('res',res)
->>>>>>> c396aaa6929291c183fb461c9c00802d56c00577
 console.log(res.data.addUser.id)
 this.props.addEmployeeMutation({
   variables: {

@@ -10,7 +10,7 @@ import {
   CardHeader,
   Col,
   Row,
-  Table
+  
   //UncontrolledAlert,
 } from 'reactstrap';
 
@@ -31,7 +31,7 @@ import 'react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css
 import {deleteCustomerMutation} from '../../graphql/mutations'
 import { graphql} from 'react-apollo';
 import {flowRight as compose} from 'lodash';
-
+import DeleteButton from '../../components/DeleteButton'
 
 
 
@@ -66,14 +66,7 @@ class CustomerList extends Component {
               </Link>
 
 
-              <Link variant="danger" to="#" onClick={()=>{console.log(row.id); this.handleShow(row.id);}} key={row.id}
-              className="label  text-danger f-12 ml-5" >
-              
-              
-              <MdDelete size={25} color={getColor('danger')} /> 
-              
-              </Link>
-               
+                 <DeleteButton />
               </div>
               );
             }
