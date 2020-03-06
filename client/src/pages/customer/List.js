@@ -96,7 +96,7 @@ handleDelete=(id=null)=>{
       },
     refetchQueries: [{ query: queryEveryCustomer }]
     });
-    
+    //put here a notification similar to the home page.
 }
 }
 
