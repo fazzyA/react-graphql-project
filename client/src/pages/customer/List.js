@@ -40,6 +40,7 @@ const tableTypes = ['responsive'];
 class CustomerList extends Component {
 
 
+  
   displayClients(){
     var {data} = this.props ;
   
@@ -66,7 +67,7 @@ class CustomerList extends Component {
               </Link>
 
 
-                 <DeleteButton />
+                 <DeleteButton handleDelete={this.handleDelete} deleteRec={row.id} />
               </div>
               );
             }
@@ -85,6 +86,19 @@ class CustomerList extends Component {
     }
 }
 
+handleDelete=(id=null)=>{
+  if (id)
+  {
+     this.props.deleteCustomer({
+      variables: {
+          id
+          
+      },
+    refetchQueries: [{ query: queryEveryCustomer }]
+    });
+    //put here a notification similar to the home page.
+}
+}
 
   render() {
     console.log(this.props)
