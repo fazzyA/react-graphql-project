@@ -1048,8 +1048,8 @@ const Mutation = new GraphQLObjectType({
       type: TickethistoryType,
       args: {
         id: { type: GraphQLString },
-        assignedTo: { type: GraphQLID },
-        ticketId: { type: new GraphQLNonNull(GraphQLID) },
+        assignedTo: { type: GraphQLString },
+        ticketId: { type: new GraphQLNonNull(GraphQLString) },
         assignedBy: { type: GraphQLString },
         status: { type: GraphQLString },
         forwardDept: { type: GraphQLString },
@@ -1064,8 +1064,8 @@ const Mutation = new GraphQLObjectType({
       type: TickethistoryType,
       args: {
         id: { type: GraphQLString },
-        assignedTo: { type: GraphQLID },
-        ticketId: { type: new GraphQLNonNull(GraphQLID) },
+        assignedTo: { type: GraphQLString },
+        ticketId: { type: new GraphQLNonNull(GraphQLString) },
         assignedBy: { type: GraphQLString },
         status: { type: GraphQLString },
         forwardDept: { type: GraphQLString },

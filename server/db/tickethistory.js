@@ -28,7 +28,7 @@ const tickethistorySchema = new Schema({
     unique: false,
     required: false
   },
-  comment: {
+  comments: {
     type: String,
     unique: false,
     required: false

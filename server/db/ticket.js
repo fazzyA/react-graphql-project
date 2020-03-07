@@ -22,12 +22,17 @@ const ticketSchema = new Schema({
     unique: false,
     required: false
   },
-  comments: {
+  comment: {
     type: String,
     unique: false,
     required: false
   },
   dateCallReceived: {
+    type: String,
+    unique: false,
+    required: false
+  },
+  createdAt: {
     type: String,
     unique: false,
     required: false

@@ -18,8 +18,8 @@ import { AvForm, AvField, AvRadioGroup, AvRadio } from 'availity-reactstrap-vali
 import { graphql } from 'react-apollo';
 import { flowRight as compose } from 'lodash';
 
-import {queryEveryEmployee} from '../../graphql/queries'
-import {queryEveryCustomer} from '../../graphql/queries'
+// import {queryEveryEmployee} from '../../graphql/queries'
+// import {queryEveryCustomer} from '../../graphql/queries'
 import {addTicketMutation} from '../../graphql/mutations'
 
 class AddTicket extends React.Component {

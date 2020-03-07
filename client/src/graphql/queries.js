@@ -167,6 +167,7 @@ const queryTicketById = gql`
       description
       comment
       dateCallReceived
+      createdAt
       status
 
     }
