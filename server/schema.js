@@ -174,7 +174,14 @@ const TicketType = new GraphQLObjectType({
       resolve(parent, args) {
         return Customer.findById(parent.customerId);
       }
-    }
+    },
+    category: { type: GraphQLString },
+    assignTo: { type: GraphQLID },
+    description: { type: GraphQLString },
+    comments: { type: GraphQLString },
+    dateCallReceived: { type: GraphQLString },
+    status: { type: GraphQLString }
+
   })
 });
 
@@ -345,13 +352,23 @@ const TickethistoryType = new GraphQLObjectType({
         return Employee.findById(parent.assignedTo);
       }
     },
+    assignedBy: { type: GraphQLID },
+    everyRelatedEmployee: {
+      type: new GraphQLList(EmployeeType),
+      resolve(parent, args) {
+        return Employee.findById(parent.assignedBy);
+      }
+    },
     ticketId: { type: new GraphQLNonNull(GraphQLID) },
     relatedTicket: {
       type: TicketType,
       resolve(parent, args) {
         return Ticket.findById(parent.ticketId);
       }
-    }
+    },
+    status: { type: GraphQLString },
+    forwardDept: { type: GraphQLString },
+    comment: { type: GraphQLString }
   })
 });
 
@@ -726,7 +743,14 @@ const Mutation = new GraphQLObjectType({
       type: TicketType,
       args: {
         id: { type: GraphQLString },
-        customerId: { type: new GraphQLNonNull(GraphQLID) }
+        customerId: { type: new GraphQLNonNull(GraphQLID) },
+        category: { type: GraphQLString },
+        assignTo: { type: GraphQLID },
+        description: { type: GraphQLString },
+        comments: { type: GraphQLString },
+        dateCallReceived: { type: GraphQLString },
+        status: { type: GraphQLString }
+
       },
       resolve(parent, args) {
         const ticket = new Ticket(args);
@@ -737,7 +761,13 @@ const Mutation = new GraphQLObjectType({
       type: TicketType,
       args: {
         id: { type: GraphQLString },
-        customerId: { type: new GraphQLNonNull(GraphQLID) }
+        customerId: { type: new GraphQLNonNull(GraphQLID) },
+        category: { type: GraphQLString },
+        assignTo: { type: GraphQLID },
+        description: { type: GraphQLString },
+        comments: { type: GraphQLString },
+        dateCallReceived: { type: GraphQLString },
+        status: { type: GraphQLString }
       },
       resolve(parent, args) {
         return Ticket.findByIdAndUpdate(args.id, args);
@@ -1019,7 +1049,11 @@ const Mutation = new GraphQLObjectType({
       args: {
         id: { type: GraphQLString },
         assignedTo: { type: GraphQLID },
-        ticketId: { type: new GraphQLNonNull(GraphQLID) }
+        ticketId: { type: new GraphQLNonNull(GraphQLID) },
+        assignedBy: { type: GraphQLString },
+        status: { type: GraphQLString },
+        forwardDept: { type: GraphQLString },
+        comment: { type: GraphQLString }
       },
       resolve(parent, args) {
         const tickethistory = new Tickethistory(args);
@@ -1031,7 +1065,12 @@ const Mutation = new GraphQLObjectType({
       args: {
         id: { type: GraphQLString },
         assignedTo: { type: GraphQLID },
-        ticketId: { type: new GraphQLNonNull(GraphQLID) }
+        ticketId: { type: new GraphQLNonNull(GraphQLID) },
+        assignedBy: { type: GraphQLString },
+        status: { type: GraphQLString },
+        forwardDept: { type: GraphQLString },
+        comment: { type: GraphQLString }
+
       },
       resolve(parent, args) {
         return Tickethistory.findByIdAndUpdate(args.id, args);

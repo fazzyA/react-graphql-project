@@ -1,17 +1,37 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+
 const tickethistorySchema = new Schema({
+  ticketId: {
+    type: String,
+    unique: false,
+    required: true
+  },
   assignedTo: {
     type: String,
     unique: false,
     required: false
   },
-  ticketId: {
+  assignedBy: {
     type: String,
     unique: false,
-    required: true
-  }
-});
+    required: false
+  },
+  status: {
+    type: String,
+    unique: false,
+    required: false
+  },
+  forwardDept: {
+    type: String,
+    unique: false,
+    required: false
+  },
+  comment: {
+    type: String,
+    unique: false,
+    required: false
+  }});
 
 module.exports = mongoose.model("Tickethistory", tickethistorySchema);

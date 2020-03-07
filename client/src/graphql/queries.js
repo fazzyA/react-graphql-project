@@ -146,6 +146,13 @@ const queryEveryTicket = gql`
     everyTicket {
       id
       customerId
+      category
+      assignTo
+      description
+      comment
+      dateCallReceived
+      createdAt
+      status
     }
   }
 `
@@ -155,6 +162,13 @@ const queryTicketById = gql`
     ticket(id: $id) {
       id
       customerId
+      category
+      assignTo
+      description
+      comment
+      dateCallReceived
+      status
+
     }
   }
 `
@@ -367,8 +381,12 @@ const queryEveryTickethistory = gql`
   {
     everyTickethistory {
       id
-      assignedTo
       ticketId
+      assignedTo
+      assignedBy
+      status
+      forwardDept
+      comments
     }
   }
 `
@@ -377,8 +395,12 @@ const queryTickethistoryById = gql`
   query($id: String!) {
     tickethistory(id: $id) {
       id
-      assignedTo
       ticketId
+      assignedTo
+      assignedBy
+      status
+      forwardDept
+      comments
     }
   }
 `
