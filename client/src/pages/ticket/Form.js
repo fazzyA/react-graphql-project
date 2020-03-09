@@ -45,9 +45,6 @@ class AddTicket extends React.Component {
       this.setState({
         [e.target.name]: e.target.value
       });
-      this.setState({
-        createdAt: ''
-      });
   //console.log(this.state)
       }
   
@@ -55,7 +52,7 @@ class AddTicket extends React.Component {
 // handleSubmit = (event, errors, values) => {
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log(this.state)
+    console.log("faiza",this.props)
 
         const {
       customerId ,
@@ -73,15 +70,15 @@ class AddTicket extends React.Component {
           customerId,
           assignTo,
           category,
-          description ,
+          description,
           comment,
           status,
           dateCallReceived,
-          createdAt
+          createdAt:''
             }
     }).then(res=>{ 
           this.props.history.push("/ticket")
-    }); 
+    }).catch(res=>{console.log(res)}); 
 
   //  this.setState({errors, values});
    

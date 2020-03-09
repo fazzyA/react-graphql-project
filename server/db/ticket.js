@@ -5,7 +5,7 @@ const ticketSchema = new Schema({
   customerId: {
     type: String,
     unique: false,
-    required: true
+    required: false
   },
   category: {
     type: String,

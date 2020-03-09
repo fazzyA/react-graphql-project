@@ -168,15 +168,15 @@ const TicketType = new GraphQLObjectType({
         return Tickethistory.findById(parent.id);
       }
     },
-    customerId: { type: new GraphQLNonNull(GraphQLID) },
+    customerId: { type: new GraphQLNonNull(GraphQLString) },
     relatedCustomer: {
       type: CustomerType,
-      resolve(parent, args) {
+      resolve(parent, args) { 
         return Customer.findById(parent.customerId);
       }
     },
     category: { type: GraphQLString },
-    assignTo: { type: GraphQLID },
+    assignTo: { type: GraphQLString },
     description: { type: GraphQLString },
     comments: { type: GraphQLString },
     dateCallReceived: { type: GraphQLString },
@@ -345,21 +345,21 @@ const TickethistoryType = new GraphQLObjectType({
   name: 'Tickethistory',
   fields: () => ({
     id: { type: GraphQLString },
-    assignedTo: { type: GraphQLID },
+    assignedTo: { type: GraphQLString },
     everyRelatedEmployee: {
       type: new GraphQLList(EmployeeType),
       resolve(parent, args) {
         return Employee.findById(parent.assignedTo);
       }
     },
-    assignedBy: { type: GraphQLID },
+    assignedBy: { type: GraphQLString },
     everyRelatedEmployee: {
       type: new GraphQLList(EmployeeType),
       resolve(parent, args) {
         return Employee.findById(parent.assignedBy);
       }
     },
-    ticketId: { type: new GraphQLNonNull(GraphQLID) },
+    ticketId: { type: new GraphQLNonNull(GraphQLString) },
     relatedTicket: {
       type: TicketType,
       resolve(parent, args) {
