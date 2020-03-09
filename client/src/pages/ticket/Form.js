@@ -1,5 +1,5 @@
+import Page from 'components/Page';
 import React from 'react';
-import Page from '../../components/Page';
 import {
   Button,
   Card,
@@ -26,26 +26,63 @@ class AddTicket extends React.Component {
 
     constructor(props){
       super(props);
-      this.state = { username: '' };
-      this.state = { name: '' };
-      this.state = { jt: '' };
+      this.state = { 
+        customerId:'',
+        category:'',
+        assignTo:'',
+        description:'',
+        comment:'',
+        dateCallReceived:'',
+        createdAt:'',
+        status:''
+      };
     }
    
 
     handleChange = (e) => {
   
 
-        this.setState({
-          [e.target.name]: e.target.value
-        });
-        console.log(this.state)
+      this.setState({
+        [e.target.name]: e.target.value
+      });
+      this.setState({
+        createdAt: ''
+      });
+  //console.log(this.state)
       }
   
 /////////////////////
 // handleSubmit = (event, errors, values) => {
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log('this.state')
+    console.log(this.state)
+
+        const {
+      customerId ,
+      assignTo,
+      category,
+      description ,
+      comment,
+      status,
+      dateCallReceived,
+      createdAt
+        
+    } = this.state;
+    this.props.addTicketMutation({
+        variables: {
+          customerId,
+          assignTo,
+          category,
+          description ,
+          comment,
+          status,
+          dateCallReceived,
+          createdAt
+            }
+    }).then(res=>{ 
+          this.props.history.push("/ticket")
+    }); 
+
   //  this.setState({errors, values});
    
   //   if(this.state.errors.length === 0){
@@ -85,8 +122,8 @@ class AddTicket extends React.Component {
 
           {/* <form> */}
          <FormGroup>
-                  <Label for="customerid">Ticket raised By</Label>
-                  <Input type="select" name="customerid">
+                  <Label for="customerId">Ticket raised By</Label>
+                  <Input type="select" name="customerId" onChange={this.handleChange}>
                     <option>--please select customer--</option>
                     <option>1</option>
                     <option>2</option>
@@ -97,8 +134,8 @@ class AddTicket extends React.Component {
         </FormGroup>
 
          <FormGroup>
-                  <Label for="assignto">Assign to</Label>
-                  <Input type="select" name="assignto">
+                  <Label for="assignTo">Assign to</Label>
+                  <Input type="select" name="assignTo" onChange={this.handleChange}>
                     <option>1</option>
                     <option>2</option>
                     <option>3</option>
@@ -111,18 +148,18 @@ class AddTicket extends React.Component {
             <FormGroup>
                 <label htmlFor="category">category</label>
                 <Input
-                    value=""
-                    name="category"
+                    type="text"
+                    name="category" onChange={this.handleChange}
                   />
 
            </FormGroup>
            <FormGroup> 
                 <label htmlFor="description">description</label>
-                <Input type="textarea" name="text" />
+                <Input type="textarea" name="description"  onChange={this.handleChange}/>
          </FormGroup>
           <FormGroup> 
                 <label htmlFor="comment">comment</label>
-                <Input type="textarea" name="text" />
+                <Input type="textarea" name="comment" onChange={this.handleChange} />
          </FormGroup>
 
             <FormGroup>
@@ -131,11 +168,12 @@ class AddTicket extends React.Component {
                 type="date"
                 name="dateCallReceived"
                 value={this.state.dateCallReceived}
+                onChange={this.handleChange}
                 />
            </FormGroup>
             <FormGroup>
             <label htmlFor="status">Ticket Status</label>
-            <Input type="select" name="status">
+            <Input type="select" name="status" onChange={this.handleChange}>
             <option value="">---select status ---</option>
             <option value="close">Close</option>
             <option value="pending">pending</option>

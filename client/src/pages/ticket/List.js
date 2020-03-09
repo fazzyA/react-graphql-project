@@ -38,10 +38,10 @@ const tableTypes = ['responsive'];
 
 class TicketList extends Component {
 
-
   displayTickets(){
     var {data} = this.props ;
-  
+    console.log('hell', data);
+
     if(data.loading){
         return( <div>Loading tickets...</div> );
     } else {
@@ -82,7 +82,7 @@ class TicketList extends Component {
          
           
           return <BootstrapTable keyField="id" 
-          data={data.everyEmployee} 
+          data={data.everyTicket} 
           columns={ columns } 
           pagination={ paginationFactory() }
           filter={ filterFactory() }

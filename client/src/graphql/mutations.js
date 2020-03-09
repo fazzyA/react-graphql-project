@@ -196,7 +196,7 @@ const deleteCustomerMutation = gql`
 `
 
 const addTicketMutation = gql`
-  mutation($customerId: ID!, $category: String, $assignTo: String, $description: String, $comment: String, $dateCallReceived: String, $createdAt: String, $status: String) {
+  mutation($customerId: String, $category: String, $assignTo: String, $description: String, $comment: String, $dateCallReceived: String, $createdAt: String, $status: String) {
     addTicket(customerId: $customerId, category: $category, assignTo: $assignTo, description: $description, comment: $comment, dateCallReceived: $dateCallReceived, createdAt: $createdAt, status: $status) {
       id
       customerId
@@ -212,7 +212,7 @@ const addTicketMutation = gql`
 `
 
 const updateTicketMutation = gql`
-  mutation($id: String!, $customerId: String!, $category: String, $assignTo: String, $description: String, $comment: String, $dateCallReceived: String, $createdAt: String, $status: String) {
+  mutation($id: String!, $customerId: String, $category: String, $assignTo: String, $description: String, $comment: String, $dateCallReceived: String, $createdAt: String, $status: String) {
     updateTicket(id: $id, customerId: $customerId, category: $category, assignTo: $assignTo, description: $description, comment: $comment, dateCallReceived: $dateCallReceived, createdAt: $createdAt, status: $status) {
       id
       customerId
