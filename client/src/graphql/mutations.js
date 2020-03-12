@@ -551,7 +551,7 @@ const deleteEmployeescheduleMutation = gql`
 
 const addTickethistoryMutation = gql`
   mutation($assignedTo: String, $ticketId: String!, $assignedBy: String, $status: String, $forwardDept: String, $comments: String ) {
-    addTickethistory(assignedTo: $assignedTo, ticketId: $ticketId, assignedBy:$assignedBy, status:$status,forwardDept:$forwardDept,comments:$comments) {
+    addTickethistory(assignedTo: $assignedTo, ticketId: $ticketId, assignedBy: $assignedBy, status: $status, forwardDept: $forwardDept, comments:$comments) {
       id
       ticketId
       assignedTo
@@ -565,7 +565,7 @@ const addTickethistoryMutation = gql`
 
 const updateTickethistoryMutation = gql`
   mutation($id: String!, $assignedTo: String, $ticketId: String!, $assignedBy: String, $status: String, $forwardDept: String, $comments: String) {
-    updateTickethistory(id: $id, assignedTo: $assignedTo, ticketId: $ticketId, assignedBy:$assignedBy, status:$status,forwardDept:$forwardDept,comments:$comments) {
+    updateTickethistory(id: $id, assignedTo: $assignedTo, ticketId: $ticketId, assignedBy: $assignedBy, status: $status, forwardDept: $forwardDept, comments: $comments) {
       id
       ticketId
       assignedTo

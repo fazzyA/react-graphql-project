@@ -178,7 +178,7 @@ const TicketType = new GraphQLObjectType({
     category: { type: GraphQLString },
     assignTo: { type: GraphQLString },
     description: { type: GraphQLString },
-    comments: { type: GraphQLString },
+    comment: { type: GraphQLString },
     dateCallReceived: { type: GraphQLString },
     status: { type: GraphQLString }
 
@@ -368,7 +368,7 @@ const TickethistoryType = new GraphQLObjectType({
     },
     status: { type: GraphQLString },
     forwardDept: { type: GraphQLString },
-    comment: { type: GraphQLString }
+    comments: { type: GraphQLString }
   })
 });
 
@@ -743,7 +743,7 @@ const Mutation = new GraphQLObjectType({
       type: TicketType,
       args: {
         id: { type: GraphQLString },
-        customerId: { type: new GraphQLNonNull(GraphQLID) },
+        customerId: { type: new GraphQLNonNull(GraphQLString) },
         category: { type: GraphQLString },
         assignTo: { type: GraphQLID },
         description: { type: GraphQLString },
@@ -761,9 +761,9 @@ const Mutation = new GraphQLObjectType({
       type: TicketType,
       args: {
         id: { type: GraphQLString },
-        customerId: { type: new GraphQLNonNull(GraphQLID) },
+        customerId: { type: new GraphQLNonNull(GraphQLString) },
         category: { type: GraphQLString },
-        assignTo: { type: GraphQLID },
+        assignTo: { type: GraphQLString },
         description: { type: GraphQLString },
         comments: { type: GraphQLString },
         dateCallReceived: { type: GraphQLString },
@@ -1053,7 +1053,7 @@ const Mutation = new GraphQLObjectType({
         assignedBy: { type: GraphQLString },
         status: { type: GraphQLString },
         forwardDept: { type: GraphQLString },
-        comment: { type: GraphQLString }
+        comments: { type: GraphQLString }
       },
       resolve(parent, args) {
         const tickethistory = new Tickethistory(args);
@@ -1069,7 +1069,7 @@ const Mutation = new GraphQLObjectType({
         assignedBy: { type: GraphQLString },
         status: { type: GraphQLString },
         forwardDept: { type: GraphQLString },
-        comment: { type: GraphQLString }
+        comments: { type: GraphQLString }
 
       },
       resolve(parent, args) {
