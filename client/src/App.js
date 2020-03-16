@@ -108,8 +108,10 @@ class App extends React.Component {
                 <Route exact path="/clientlist" component={ClientList} />
                 <Route exact path="/customer/add" component={AddCustomer} />
                 <Route exact path="/customer/update/:id" component={AddCustomer} />
+                <Route exact path="/employee/add" component={AddEmployee} />
+                <Route exact path="/employee/update/:id" component={AddEmployee} />
                 
-                
+
               </React.Suspense>
             </MainLayout>
             <Redirect to="/" />
