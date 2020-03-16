@@ -31,6 +31,7 @@ import 'react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css
 import {deleteEmployeeMutation} from '../../graphql/mutations'
 import { graphql} from 'react-apollo';
 import {flowRight as compose} from 'lodash';
+import DeleteButton from '../../components/DeleteButton'
 
 
 
@@ -66,14 +67,8 @@ class EmployeeList extends Component {
               </Link>
 
 
-              <Link variant="danger" to="#" onClick={()=>{console.log(row.id); this.handleShow(row.id);}} key={row.id}
-              className="label  text-danger f-12 ml-5" >
-              
-              
-              <MdDelete size={25} color={getColor('danger')} /> 
-              
-              </Link>
-               
+              <DeleteButton handleDelete={this.handleDelete} deleteRec={row.id} />
+
               </div>
               );
             }
@@ -91,6 +86,21 @@ class EmployeeList extends Component {
            />
     }
 }
+
+handleDelete=(id=null)=>{
+  if (id)
+  {
+     this.props.deleteEmployee({
+      variables: {
+          id
+          
+      },
+    refetchQueries: [{ query: queryEveryEmployee }]
+    });
+    //put here a notification similar to the home page.
+}
+}
+
 
 
   render() {
@@ -119,8 +129,10 @@ class EmployeeList extends Component {
 };
 }
 export default compose(
-  graphql(queryEveryEmployee),
+  graphql(queryEveryEmployee,    {
+    options: { fetchPolicy: 'network-only' },
+  }),
   graphql(deleteEmployeeMutation  ,{ name: "deleteEmployee" })
-        
+      
     
 )(EmployeeList);
