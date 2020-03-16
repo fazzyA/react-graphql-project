@@ -43,29 +43,39 @@ class AddTicket extends React.Component {
       };
       
     }
+
+    
     displayCustomers = () => {
-      // var {data} = this.props ;
+//       var {data} = this.props ;
 
-      //console.log("customer=",this.props)
-    //   if(data.loading){
-    //     return( <div>Loading tickets...</div> );
-    // } else {
+var { everyCustomer} = this.props.queryEveryCustomer
 
-// const tab = data.map((cust)=>{return <option value={cust.id}>{cust.name}</option>})
-//       return tab;
-    // }
+console.log(everyCustomer)
+     
+//       console.log("customer=",this.props)
+//       if(data.loading){
+//         return( <div>Loading tickets...</div> );
+//     } else {
+  if(everyCustomer){
+const tab = everyCustomer.map((cust)=>{return <option value={cust.id}>{cust.name}</option>})
+      return tab;
+    }
    }//displaycustomer
    
    displayEmployee = () => {
-    // var {data} = this.props ;
+    // var {everyEmployee} = this.props ;
+    // queryEveryEmployee.everyEmployee
+    var {everyEmployee} = this.props.queryEveryEmployee
 
     //console.log("eeee=",this.props)
   //   if(data.loading){
   //     return( <div>Loading tickets...</div> );
   // } else {
+if(everyEmployee){
+  const tab = everyEmployee.map((emp)=>{return <option value={emp.id}>{emp.name}</option>})
+      return tab;
+}
 
-// const tab = data.map((emp)=>{return <option value={emp.id}>{emp.name}</option>})
-//       return tab;
   // }
  }//employee
 
@@ -93,9 +103,12 @@ class AddTicket extends React.Component {
       comment,
       status,
       dateCallReceived,
-      createdAt
+      
         
     } = this.state;
+
+    console.log(this.state)
+
     this.props.addTicketMutation({
         variables: {
           customerId,
@@ -103,9 +116,9 @@ class AddTicket extends React.Component {
           category,
           description,
           comment,
-          status,
+          createdAt:Date.now().toString(),
           dateCallReceived,
-          createdAt:''
+          status,
             }
     }).then(res=>{ 
           this.props.history.push("/ticket")
@@ -163,7 +176,7 @@ class AddTicket extends React.Component {
                   <Label for="assignTo">Assign to</Label>
                   <Input type="select" name="assignTo" onChange={this.handleChange}>
                     <option>------</option>
-                    {/* {this.displayEmployee()} */}
+                    {this.displayEmployee()}
                   </Input>
         </FormGroup>
 

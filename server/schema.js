@@ -180,8 +180,8 @@ const TicketType = new GraphQLObjectType({
     description: { type: GraphQLString },
     comment: { type: GraphQLString },
     dateCallReceived: { type: GraphQLString },
-    status: { type: GraphQLString }
-
+    status: { type: GraphQLString },
+    createdAt : { type : GraphQLString}
   })
 });
 
@@ -745,12 +745,12 @@ const Mutation = new GraphQLObjectType({
         id: { type: GraphQLString },
         customerId: { type: new GraphQLNonNull(GraphQLString) },
         category: { type: GraphQLString },
-        assignTo: { type: GraphQLID },
+        assignTo: { type: GraphQLString },
         description: { type: GraphQLString },
-        comments: { type: GraphQLString },
+        comment: { type: GraphQLString },
         dateCallReceived: { type: GraphQLString },
-        status: { type: GraphQLString }
-
+        status: { type: GraphQLString },
+        createdAt : { type : GraphQLString}
       },
       resolve(parent, args) {
         const ticket = new Ticket(args);
