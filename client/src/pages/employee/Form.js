@@ -18,8 +18,9 @@ import { AvForm, AvField, AvRadioGroup, AvRadio } from 'availity-reactstrap-vali
 import { graphql } from 'react-apollo';
 import { flowRight as compose } from 'lodash';
 
-import {addEmployeeMutation} from '../../graphql/mutations'
+import {addEmployeeMutation, updateEmployeeMutation} from '../../graphql/mutations'
 import {addUserMutation} from '../../graphql/mutations'
+import {queryEmployeeById} from '../../graphql/queries'
 
 
 class AddEmployee extends React.Component {
@@ -42,24 +43,100 @@ class AddEmployee extends React.Component {
         badge: '',
         pin: '',
         picture: '',
-        department: ''
+        department: '',
+        operation: 'Add',
+        values:{}
       };
     }
    
-    handleChange = (e) => {
-  
 
+    componentDidMount(preprops){
+      console.log(this.props.match.params.id)
+      if(this.props.match.params.id){
+        // this.props.queryClientsById.refetch(); // >>> Refetch here!
+        this.setState({operation : "Update"})
+        console.log('updated')
+      }
+      
+    }
+
+    
+    componentDidUpdate(prevProps) {
+      console.log(this.props.data.employee )
+      console.log(prevProps)
+      if( prevProps.data.employee !== this.props.data.employee ){
+        console.log("----------------------------------")
+        const {
+          name ,
+          gender,
+          ratePerHour,
+          jobTitle,
+          hoursPerWeek,
+          joinDate,
+          phone,
+          address,
+          payrollid,
+          badge,
+          pin,
+          picture,
+          department
+              
+        } =this.props.data.employee 
+        this.setState({
+          values : {
+            name,
+            gender,
+            ratePerHour,
+            jobTitle,
+            hoursPerWeek,
+            joinDate,
+            phone,
+            address,
+            payrollid,
+            badge,
+            pin,
+            picture,
+            department
+            }
+        })
+      }
+    }
+    
+
+
+
+    handleChange = (e) => {
       this.setState({
         [e.target.name]: e.target.value
       });
       console.log(this.state)
     }
 
-    handleSubmit = (event) => {
+    handleSubmit = (event, errors, values) => {
       event.preventDefault();
-     // this.setState({errors, values});
+    //  this.setState({errors, values});
      
-    //if(this.state.errors.length === 0){
+    //  if(this.state.errors.length === 0){
+      const {
+        username,
+        name,
+        email,
+        gender,
+        ratePerHour,
+        jobTitle,
+        hoursPerWeek,
+        joinDate,
+        phone,
+        address,
+        payrollid,
+        badge,
+        pin,
+        picture,
+        department
+          
+      } = this.state;
+        //if(this.state.errors.length === 0){
+      if (this.state.operation === "Add"){
       const {
         username,
         name,
@@ -109,21 +186,48 @@ this.props.addEmployeeMutation({
 }).then(res=>{ 
   console.log('resolved');
   this.props.history.push("/employee")
-}); 
-
+});
       });
+    } else{
+      this.props.updateEmployeeMutation({
+        variables: {
+          id : this.props.match.params.id,
+          username,
+          name,
+          email,
+          gender,
+          ratePerHour,
+          jobTitle,
+          hoursPerWeek,
+          joinDate,
+          phone,
+          address,
+          payrollid,
+          badge,
+          pin,
+          picture,
+          department
+                  
+        }
+    }).then(res=>{ 
+          this.props.history.push("/employee") 
+    });     
+          }
 
-//}
-  }
+// }  //if
+  }//handle submit
     
-        
+
 
     render() {
     //   console.log(this.state)
     //   console.log(this.props)
       
       return (
-    <Page title="Add Employee" breadcrumbs={[{ name: 'add employee', active: true }]}>
+    <Page title="Employee" breadcrumbs={[{ name: 'Employee', active: false, link : "/employee" },
+    {name: this.state.operation , active: true,}  
+    ]}>
+
       <Row>
         <Col xl={10} lg={12} md={12}>
           <Card>
@@ -302,5 +406,17 @@ this.props.addEmployeeMutation({
    }
    export default compose(
     graphql(addEmployeeMutation,{name:"addEmployeeMutation"}),
-    graphql(addUserMutation,{name:"addUserMutation"})
+    graphql(addUserMutation,{name:"addUserMutation"}),
+    graphql(queryEmployeeById , {
+      options: (props) => {
+        return {
+            variables: {
+                id: props.match.params.id
+            }
+        }
+        }
+           }),
+   
+    graphql(updateEmployeeMutation , { name: "updateEmployeeMutation" }),
+
     )(AddEmployee);
