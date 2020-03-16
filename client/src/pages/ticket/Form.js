@@ -14,12 +14,17 @@ import {
   Label,
   Row,
 } from 'reactstrap';
+import BootstrapTable from 'react-bootstrap-table-next';
+import paginationFactory from 'react-bootstrap-table2-paginator';
+import filterFactory, { textFilter } from 'react-bootstrap-table2-filter';
+import 'react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css';
+
 import { AvForm, AvField, AvRadioGroup, AvRadio } from 'availity-reactstrap-validation';
 import { graphql } from 'react-apollo';
 import { flowRight as compose } from 'lodash';
 
-// import {queryEveryEmployee} from '../../graphql/queries'
- import {queryEveryCustomer} from '../../graphql/queries'
+import {queryEveryCustomer} from '../../graphql/queries'
+import {queryEveryEmployee} from '../../graphql/queries'
 import {addTicketMutation} from '../../graphql/mutations'
 
 class AddTicket extends React.Component {
@@ -36,8 +41,34 @@ class AddTicket extends React.Component {
         createdAt:'',
         status:''
       };
+      
     }
+    displayCustomers = () => {
+      // var {data} = this.props ;
+
+      //console.log("customer=",this.props)
+    //   if(data.loading){
+    //     return( <div>Loading tickets...</div> );
+    // } else {
+
+// const tab = data.map((cust)=>{return <option value={cust.id}>{cust.name}</option>})
+//       return tab;
+    // }
+   }//displaycustomer
    
+   displayEmployee = () => {
+    // var {data} = this.props ;
+
+    //console.log("eeee=",this.props)
+  //   if(data.loading){
+  //     return( <div>Loading tickets...</div> );
+  // } else {
+
+// const tab = data.map((emp)=>{return <option value={emp.id}>{emp.name}</option>})
+//       return tab;
+  // }
+ }//employee
+
 
     handleChange = (e) => {
   
@@ -52,7 +83,7 @@ class AddTicket extends React.Component {
 // handleSubmit = (event, errors, values) => {
   handleSubmit = (event) => {
     event.preventDefault();
-    console.log("faiza",this.props)
+    // console.log("faiza",this.state.customerId)
 
         const {
       customerId ,
@@ -94,7 +125,7 @@ class AddTicket extends React.Component {
   //   this.props.TicketFormMutation({
   //       variables: {
   //         name ,
-  //         phone,
+  //         phone,0
   //         address ,
   //         area,
   //         fax 
@@ -108,13 +139,15 @@ class AddTicket extends React.Component {
 /////////////////////////
 
     render() {
+      //console.log("renedr",this.props)
       return (
-    <Page title="Add tickets" breadcrumbs={[{ name: 'add tickets', active: true }]}>
+    <Page title="Add ticket" breadcrumbs={[{ name: 'add ticket', active: true }]}>
       <Row>
         <Col xl={10} lg={12} md={12}>
           <Card>
             <CardHeader>New Ticket</CardHeader>
             <CardBody>
+
               <Form onSubmit={this.handleSubmit}>
 
           {/* <form> */}
@@ -122,22 +155,15 @@ class AddTicket extends React.Component {
                   <Label for="customerId">Ticket raised By</Label>
                   <Input type="select" name="customerId" onChange={this.handleChange}>
                     <option>--please select customer--</option>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    {this.displayCustomers()}
                   </Input>
         </FormGroup>
 
          <FormGroup>
                   <Label for="assignTo">Assign to</Label>
                   <Input type="select" name="assignTo" onChange={this.handleChange}>
-                    <option>1</option>
-                    <option>2</option>
-                    <option>3</option>
-                    <option>4</option>
-                    <option>5</option>
+                    <option>------</option>
+                    {/* {this.displayEmployee()} */}
                   </Input>
         </FormGroup>
 
@@ -196,6 +222,7 @@ class AddTicket extends React.Component {
     }
    }
    export default compose(
-    graphql(addTicketMutation , { name: "addTicketMutation" }),
-
+    graphql(queryEveryCustomer, {name: "queryEveryCustomer"}),
+    graphql(queryEveryEmployee, {name: "queryEveryEmployee"}),
+    graphql(addTicketMutation , { name: "addTicketMutation" })
    )(AddTicket);
