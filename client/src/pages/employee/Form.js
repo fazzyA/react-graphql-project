@@ -82,7 +82,10 @@ class AddEmployee extends React.Component {
         variables: {
          
           email,
-          password : "1234567"
+          password : "12345678",
+          role : "tech",
+          createdAt : Date.now(),
+          status : "pending"
         }
       }).then(res=>{
 // console.log('res',res)
@@ -131,7 +134,8 @@ this.props.addEmployeeMutation({
             <CardBody>
             <AvForm onSubmit={this.handleSubmit}>
           <fieldset>
-            <legend>Login Details</legend>
+            {/* <legend>Login Details</legend> */}
+            {/* <hr/> */}
          {/* <FormGroup><label htmlFor="username">username</label>
             <Input
               type="text"
@@ -139,11 +143,17 @@ this.props.addEmployeeMutation({
              onChange={this.handleChange}
             /></FormGroup> */}
 
-<AvField name="username" label="UserName" type="text" validate={{
+{/* <AvField name="username" label="UserName" type="text" validate={{
             required: {value: true, errorMessage: 'Please enter a username'},
            // pattern: {value: '^[A-Za-z0-9 /b]+$', errorMessage: 'Your name must be composed only with letter and numbers'},
             minLength: {value: 5, errorMessage: 'Your name must be between 5 and 16 characters'},
             maxLength: {value: 16, errorMessage: 'Your name must be between 6 and 16 characters'}
+          }} 
+          onChange={this.handleChange}
+          /> */}
+          <AvField name="name" label="Name" type="text" validate={{
+            required: {value: true, errorMessage: 'Please enter a name'}
+           // pattern: {value: '^[A-Za-z0-9 /b]+$', errorMessage: 'Your name must be composed only with letter and numbers'},
           }} 
           onChange={this.handleChange}
           />
@@ -160,13 +170,10 @@ this.props.addEmployeeMutation({
               onChange={this.handleChange}
             />
             </FormGroup> */}
+            {/* <br/><br/>
+            <h2>General Details</h2>
+            <hr/> */}
 
-<AvField name="name" label="employee Name" type="text" validate={{
-            required: {value: true, errorMessage: 'Please enter a name'}
-           // pattern: {value: '^[A-Za-z0-9 /b]+$', errorMessage: 'Your name must be composed only with letter and numbers'},
-          }} 
-          onChange={this.handleChange}
-          />
 
 {/* 
             <FormGroup check>
@@ -182,13 +189,13 @@ this.props.addEmployeeMutation({
                       </Label>
                     </FormGroup> */}
 
-<AvRadioGroup name="gender" label="Gender" errorMessage="Pick one!">
+<AvRadioGroup name="gender" label="Gender"  errorMessage="Pick one!">
           <AvRadio label="Male" value="Male" />
           <AvRadio label="Female" value="Female" />
         </AvRadioGroup>
 
 
-<hr></hr>
+
             {/* <FormGroup>
                 <label htmlFor="ratePerHour">Rate per hour</label>
                 <Input
@@ -236,37 +243,22 @@ this.props.addEmployeeMutation({
            />
 
 
-            {/* <FormGroup>
-                <label htmlFor="address">Address</label>
-                <Input
-                type="text"
-                name="address"
-                value={this.state.address} onChange={this.handleChange}
-                />
-            </FormGroup> */}
-            {/* <FormGroup>
-                <label htmlFor="badge">Badge</label>
-                <Input
-                type="text"
-                name="badge"
-                value={this.state.badge} onChange={this.handleChange}
-                />
-            </FormGroup> */}
-            {/* <FormGroup>
-                <label htmlFor="pin">Pin</label>
-                <Input
-                type="text"
-                name="pin"
-                value={this.state.pin} onChange={this.handleChange}
-                />
-            </FormGroup> */}
-
-<AvField name="department" label="department" type="text" errorMessage="Invalid name" validate={{
-           // required: {value: true},
-           // pattern: {value: '^[A-Za-z0-9]+$'},
-            minLength: {value: 2},
-            maxLength: {value: 30}
-          }} />
+          <AvField 
+          type="select" 
+          name="department" 
+          label="Department" 
+          validate={{
+          required: {value: true}
+          }} 
+          
+          onChange={this.handleChange}
+          >
+          <option >Select</option>
+          <option value="sales" >Sales</option>
+          <option value="administration" >Administration</option>
+          <option value="technical">Technical</option>
+          
+        </AvField>
 
             {/* <FormGroup>
                 <label htmlFor="department">department</label>

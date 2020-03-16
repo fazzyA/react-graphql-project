@@ -109,6 +109,7 @@ class App extends React.Component {
                 <Route exact path="/customer/add" component={AddCustomer} />
                 <Route exact path="/customer/update/:id" component={AddCustomer} />
                 
+                
               </React.Suspense>
             </MainLayout>
             <Redirect to="/" />

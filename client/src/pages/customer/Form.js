@@ -208,6 +208,7 @@ handleSubmit = (event, errors, values) => {
           
           onChange={this.handleChange}
           >
+          <option >Select</option>
           <option value="stockton" >Stockton</option>
           <option value="scramento" >Scramento</option>
           <option value="bayarea">Bay Area</option>

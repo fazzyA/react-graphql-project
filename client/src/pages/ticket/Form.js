@@ -139,7 +139,7 @@ class AddTicket extends React.Component {
 /////////////////////////
 
     render() {
-      //console.log("renedr",this.props)
+      console.log("renedr",this.props)
       return (
     <Page title="Add ticket" breadcrumbs={[{ name: 'add ticket', active: true }]}>
       <Row>

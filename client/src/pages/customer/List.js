@@ -32,14 +32,17 @@ import {deleteCustomerMutation} from '../../graphql/mutations'
 import { graphql} from 'react-apollo';
 import {flowRight as compose} from 'lodash';
 import DeleteButton from '../../components/DeleteButton'
-
+import NotificationSystem from 'react-notification-system';
+import { NOTIFICATION_SYSTEM_STYLE } from 'utils/constants';
+import {
+  MdImportantDevices,
+ 
+} from 'react-icons/md';
 
 
 const tableTypes = ['responsive'];
 
 class CustomerList extends Component {
-
-
   
   displayClients(){
     var {data} = this.props ;
@@ -97,7 +100,18 @@ handleDelete=(id=null)=>{
     refetchQueries: [{ query: queryEveryCustomer }]
     });
     //put here a notification similar to the home page.
-}
+    setTimeout(() => {
+      if (!this.notificationSystem) {
+        return;
+      }
+
+      this.notificationSystem.addNotification({
+        title: <MdImportantDevices />,
+        message: 'Record has been deleted!',
+        level: 'info',
+      });
+    }, 1500);
+  }
 }
 
   render() {
@@ -120,7 +134,13 @@ handleDelete=(id=null)=>{
           </Col>
         </Row>
       ))}
-
+      <NotificationSystem
+          dismissible={false}
+          ref={notificationSystem =>
+            (this.notificationSystem = notificationSystem)
+          }
+          style={NOTIFICATION_SYSTEM_STYLE}
+        />
     </Page>
   );
 };
