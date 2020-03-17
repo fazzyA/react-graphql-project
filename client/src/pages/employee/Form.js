@@ -51,19 +51,19 @@ class AddEmployee extends React.Component {
    
 
     componentDidMount(preprops){
-      console.log(this.props.match.params.id)
+     // console.log(this.props.match.params.id)
       if(this.props.match.params.id){
         // this.props.queryClientsById.refetch(); // >>> Refetch here!
         this.setState({operation : "Update"})
-        console.log('updated')
+       // console.log('updated')
       }
       
     }
 
     
     componentDidUpdate(prevProps) {
-      console.log(this.props.data.employee )
-      console.log(prevProps)
+      // console.log(this.props.data.employee )
+      // console.log(prevProps)
       if( prevProps.data.employee !== this.props.data.employee ){
         console.log("----------------------------------")
         const {
@@ -114,11 +114,11 @@ class AddEmployee extends React.Component {
 
     handleSubmit = (event, errors, values) => {
       event.preventDefault();
-    //  this.setState({errors, values});
-     
+    // this.setState({errors, values});
+     console.log("i am in handlesubmit",this.state)
     //  if(this.state.errors.length === 0){
       const {
-        username,
+        // username,
         name,
         email,
         gender,
@@ -156,17 +156,16 @@ class AddEmployee extends React.Component {
           
       } = this.state;
       this.props.addUserMutation({
-        variables: {
-         
+        variables: {         
           email,
           password : "12345678",
           role : "tech",
-          createdAt : Date.now(),
+          createdAt : Date.now().toString(),
           status : "pending"
         }
       }).then(res=>{
-// console.log('res',res)
-// console.log(res.data.addUser.id)
+// console.log('res.data.add',res)
+// console.log(resUser.id)
 this.props.addEmployeeMutation({
   variables: {
     userId: res.data.addUser.id,
@@ -192,12 +191,28 @@ this.props.addEmployeeMutation({
 });
       });
     } else{
-      this.props.updateEmployeeMutation({
+      console.log("i am in uodate")
+      const {
+        name,
+        gender,
+        ratePerHour,
+        jobTitle,
+        hoursPerWeek,
+        joinDate,
+        phone,
+        address,
+        payrollid,
+        badge,
+        pin,
+        picture,
+        department
+          
+      } = this.state;
+
+      this.props.updateEmployee({
         variables: {
           id : this.props.match.params.id,
-          username,
           name,
-          email,
           gender,
           ratePerHour,
           jobTitle,
@@ -210,7 +225,6 @@ this.props.addEmployeeMutation({
           pin,
           picture,
           department
-                  
         }
     }).then(res=>{ 
           this.props.history.push("/employee") 
@@ -223,7 +237,7 @@ this.props.addEmployeeMutation({
 
 
     render() {
-    //   console.log(this.state)
+       console.log("rendr",this.props)
     //   console.log(this.props)
       
       return (
@@ -259,48 +273,24 @@ this.props.addEmployeeMutation({
             required: {value: true, errorMessage: 'Please enter a name'}
            // pattern: {value: '^[A-Za-z0-9 /b]+$', errorMessage: 'Your name must be composed only with letter and numbers'},
           }} 
+          value = {this.state.values.name || ""}
           onChange={this.handleChange}
           />
-
-<AvField name="email" label="Email" type="email" onChange={this.handleChange}/>
+<AvField name="email" label="Email" type="email" 
+value = {this.state.values.email || ""}
+onChange={this.handleChange}/>
        
             </fieldset>
 
-           {/* <FormGroup>
-            <label htmlFor="name">Name</label>
-            <Input
-              type="text"
-              name="name"
-              onChange={this.handleChange}
-            />
-            </FormGroup> */}
-            {/* <br/><br/>
-            <h2>General Details</h2>
-            <hr/> */}
-
-
-{/* 
-            <FormGroup check>
-              
-                      <Label check>
-                        <Input type="radio" name="gender" /> Male
-                      </Label>
-                    </FormGroup>
-
-                    <FormGroup check>
-                      <Label check>
-                        <Input type="radio" name="gender" /> Female
-                      </Label>
-                    </FormGroup> */}
 
 <AvRadioGroup name="gender" label="Gender"  errorMessage="Pick one!">
-          <AvRadio label="Male" value="Male" />
-          <AvRadio label="Female" value="Female" />
+          <AvRadio name="gender" label="Male" value="Male" selected={this.state.values.gender==='Male'} onChange={this.handleChange}  />
+          <AvRadio name="gender" label="Female" value="Female" selected={this.state.values.gender==='Female'} onChange={this.handleChange}/>
         </AvRadioGroup>
 
 
 
-            {/* <FormGroup>
+            {/* <FormGroup> 
                 <label htmlFor="ratePerHour">Rate per hour</label>
                 <Input
                 type="text"
@@ -310,9 +300,13 @@ this.props.addEmployeeMutation({
             </FormGroup> */}
 
             <AvField name="ratePerHour" label="ratePerHour" type="text"
-            errorMessage='Enter in number' validate={{number: true}} />
+            value = {this.state.values.ratePerHour || ""}
+            errorMessage='Enter in number' validate={{number: true}}
+            onChange={this.handleChange} />
 
-<AvField name="joinDate" label="joinDate" type="date" />
+<AvField name="joinDate" label="joinDate" type="date" value = {this.state.values.joinDate || ""}
+onChange={this.handleChange}
+/>
             {/* <FormGroup>
                 <label htmlFor="joinDate">Join date</label>
                 <Input
@@ -321,10 +315,9 @@ this.props.addEmployeeMutation({
                 value={this.state.joinDate} onChange={this.handleChange}
                 />
             </FormGroup> */}
-                <AvField name="phone" label="Phone " type="text"
-        errorMessage="Invalid Phone Number"
-       validate={{tel: true
-        }}
+                <AvField name="phone" label="Phone " type="tel"
+        errorMessage="Invalid Phone Number. Enter 11 digits"
+        value = {this.state.values.phone || ""}
         onChange={this.handleChange}
          />
             {/* <FormGroup>
@@ -343,6 +336,7 @@ this.props.addEmployeeMutation({
             minLength: {value: 6},
             maxLength: {value: 106}
           }}
+          value = {this.state.values.address || ""}
           onChange={this.handleChange}
            />
 
@@ -364,26 +358,6 @@ this.props.addEmployeeMutation({
           
         </AvField>
 
-            {/* <FormGroup>
-                <label htmlFor="department">department</label>
-                <Input
-                type="text"
-                name="department"
-                value={this.state.department} onChange={this.handleChange}
-                />
-            </FormGroup> */}
-            {/* <FormGroup>
-                <label htmlFor="picture">Picture</label>
-                <Input
-                type="file"
-                name="pic"
-                />
-            </FormGroup> */}
-            {/* <FormGroup check row>
-                  <Col sm={{ size: 10, offset: 2 }}>
-                    <Button>Submit</Button>
-                  </Col>
-                </FormGroup> */}
           <Button>Submit</Button>
 
                 </AvForm>
@@ -409,6 +383,6 @@ this.props.addEmployeeMutation({
         }
            }),
    
-    graphql(updateEmployeeMutation , { name: "updateEmployeeMutation" }),
+    graphql(updateEmployeeMutation , { name: "updateEmployee" }),
 
     )(AddEmployee);

@@ -60,6 +60,7 @@ console.log(everyCustomer)
 const tab = everyCustomer.map((cust)=>{return <option value={cust.id}>{cust.name}</option>})
       return tab;
     }
+    
    }//displaycustomer
    
    displayEmployee = () => {

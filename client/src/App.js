@@ -2,7 +2,7 @@ import { STATE_LOGIN, STATE_SIGNUP } from 'components/AuthForm';
 import GAListener from 'components/GAListener';
 import { EmptyLayout, LayoutRoute, MainLayout } from 'components/Layout';
 import AddEmployee from './pages/employee/Form';
-// import AddTicket from './pages/ticket/Form';
+import AddTicket from './pages/ticket/Form';
 import AddCustomer from './pages/customer/Form';
 import AddClient from 'components/Form/AddClient';
 import ClientList from 'components/Form/ClientList';
@@ -33,7 +33,7 @@ const TablePage = React.lazy(() => import('pages/TablePage'));
 const TypographyPage = React.lazy(() => import('pages/TypographyPage'));
 const WidgetPage = React.lazy(() => import('pages/WidgetPage'));
 const SchedularPage = React.lazy(() => import('pages/SchedularPage'));
-// const TicketPage = React.lazy(() => import('pages/ticket/List.js'));
+const TicketPage = React.lazy(() => import('pages/ticket/List.js'));
 const ReportPage = React.lazy(() => import('pages/ReportPage'));
 // const EmployeePage = React.lazy(() => import('pages/EmployeePage'));
 const EmployeePage = React.lazy(() => import('pages/employee/List.js'));
@@ -81,7 +81,7 @@ class App extends React.Component {
                 <Route exact path="/tables" component={TablePage} />
                 <Route exact path="/badges" component={BadgePage} />
                 <Route exact path="/schedular" component={SchedularPage} />
-                {/* <Route exact path="/ticket" component={TicketPage} /> */}
+                <Route exact path="/ticket" component={TicketPage} />
                 <Route exact path="/report" component={ReportPage} />
                 <Route exact path="/employee" component={EmployeePage} />
                 <Route exact path="/customer" component={CustomerPage} />
@@ -101,7 +101,7 @@ class App extends React.Component {
                 <Route exact path="/input-groups" component={InputGroupPage} />
                 <Route exact path="/charts" component={ChartPage} />
                 <Route exact path="/addemployee" component={AddEmployee} />
-                {/* <Route exact path="/addticket" component={AddTicket} /> */}
+                <Route exact path="/addticket" component={AddTicket} />
                 <Route exact path="/addcustomer" component={AddCustomer} />
                 <Route exact path="/adduser" component={AddUser} />
                 <Route exact path="/addclient" component={AddClient} />
@@ -110,6 +110,8 @@ class App extends React.Component {
                 <Route exact path="/customer/update/:id" component={AddCustomer} />
                 <Route exact path="/employee/add" component={AddEmployee} />
                 <Route exact path="/employee/update/:id" component={AddEmployee} />
+                <Route exact path="/ticket/add" component={AddTicket} />
+                <Route exact path="/ticket/update/:id" component={AddTicket} />
                 
 
               </React.Suspense>

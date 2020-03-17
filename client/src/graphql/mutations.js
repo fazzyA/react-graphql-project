@@ -29,6 +29,9 @@ const updateUserMutation = gql`
       email
       password
       status
+      email
+      password
+      status
       role
       createdAt
       updatedAt
@@ -69,15 +72,17 @@ const addEmployeeMutation = gql`
       picture
       department
     }
+    email
+    password
+    status
   }
 `
 
 const updateEmployeeMutation = gql`
-  mutation($id: String!, $name: String, $userId: ID!, $gender: String, $ratePerHour: String, $jobTitle: String, $hoursPerWeek: String, $joinDate: String, $phone: String, $address: String, $payrollid: String, $badge: String, $pin: String, $picture: String, $department: String) {
-    updateEmployee(id: $id, name: $name, userId: $userId, gender: $gender, ratePerHour: $ratePerHour, jobTitle: $jobTitle, hoursPerWeek: $hoursPerWeek, joinDate: $joinDate, phone: $phone, address: $address, payrollid: $payrollid, badge: $badge, pin: $pin, picture: $picture, department: $department) {
+  mutation($id: String!, $name: String, $gender: String, $ratePerHour: String, $jobTitle: String, $hoursPerWeek: String, $joinDate: String, $phone: String, $address: String, $payrollid: String, $badge: String, $pin: String, $picture: String, $department: String) {
+    updateEmployee(id: $id, name: $name, gender: $gender, ratePerHour: $ratePerHour, jobTitle: $jobTitle, hoursPerWeek: $hoursPerWeek, joinDate: $joinDate, phone: $phone, address: $address, payrollid: $payrollid, badge: $badge, pin: $pin, picture: $picture, department: $department) {
       id
       name
-      userId
       gender
       ratePerHour
       jobTitle
