@@ -8,7 +8,7 @@ const employeeSchema = new Schema({
     required: false
   },
   userId: {
-    type: String,
+    type: Id,
     unique: false,
     required: true
   },

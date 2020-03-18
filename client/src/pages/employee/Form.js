@@ -107,8 +107,11 @@ class AddEmployee extends React.Component {
 
     handleChange = (e) => {
       this.setState({
-        [e.target.name]: e.target.value
-      });
+        values : { 
+          ...this.state.values,
+          [e.target.id]: e.target.value
+         }
+            });
       console.log(this.state)
     }
 
@@ -191,7 +194,7 @@ this.props.addEmployeeMutation({
 });
       });
     } else{
-      console.log("i am in uodate")
+      console.log("i am in update")
       const {
         name,
         gender,

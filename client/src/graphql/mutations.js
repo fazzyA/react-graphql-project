@@ -72,9 +72,6 @@ const addEmployeeMutation = gql`
       picture
       department
     }
-    email
-    password
-    status
   }
 `
 
@@ -217,8 +214,8 @@ const addTicketMutation = gql`
 `
 
 const updateTicketMutation = gql`
-  mutation($id: String!, $customerId: String, $category: String, $assignTo: String, $description: String, $comment: String, $dateCallReceived: String, $createdAt: String, $status: String) {
-    updateTicket(id: $id, customerId: $customerId, category: $category, assignTo: $assignTo, description: $description, comment: $comment, dateCallReceived: $dateCallReceived, createdAt: $createdAt, status: $status) {
+  mutation($id: String!, $customerId: String!, $category: String, $assignTo: String, $description: String, $comment: String, $dateCallReceived: String, $status: String) {
+    updateTicket(id: $id, customerId: $customerId, category: $category, assignTo: $assignTo, description: $description, comment: $comment, dateCallReceived: $dateCallReceived, status: $status) {
       id
       customerId
       category
@@ -226,7 +223,6 @@ const updateTicketMutation = gql`
       description
       comment
       dateCallReceived
-      createdAt
       status
     }
   }

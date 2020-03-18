@@ -150,8 +150,9 @@ handleDelete=(id=null)=>{
 };
 }
 export default compose(
-  graphql(queryEveryTicket),
-  graphql(deleteTicketMutation  ,{ name: "deleteTicketMutation" })
-        
+  graphql(queryEveryTicket, {
+    options: { fetchPolicy: 'network-only' },
+  }),
+  graphql(deleteTicketMutation, { name: "deleteTicketMutation" })
     
 )(TicketList);
