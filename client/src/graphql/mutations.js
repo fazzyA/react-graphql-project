@@ -23,7 +23,7 @@ const addUserMutation = gql`
 `
 
 const updateUserMutation = gql`
-  mutation($id: String!, $email: String!, $password: String!, $status: String, $role: String, $createdAt: String, $updatedAt: String) {
+  mutation($id: ID!, $email: String!, $password: String!, $status: String, $role: String, $createdAt: String, $updatedAt: String) {
     updateUser(id: $id, email: $email, password: $password, status: $status, role: $role, createdAt: $createdAt, updatedAt: $updatedAt) {
       id
       email

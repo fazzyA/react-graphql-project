@@ -137,33 +137,34 @@ class AddEmployee extends React.Component {
         picture,
         department
           
-      } = this.state;
+      } = this.state.values;
         //if(this.state.errors.length === 0){
       if (this.state.operation === "Add"){
-      const {
-        username,
-        name,
-        email,
-        gender,
-        ratePerHour,
-        jobTitle,
-        hoursPerWeek,
-        joinDate,
-        phone,
-        address,
-        payrollid,
-        badge,
-        pin,
-        picture,
-        department
+      // const {
+      //   username,
+      //   name,
+      //   email,
+      //   gender,
+      //   ratePerHour,
+      //   jobTitle,
+      //   hoursPerWeek,
+      //   joinDate,
+      //   phone,
+      //   address,
+      //   payrollid,
+      //   badge,
+      //   pin,
+      //   picture,
+      //   department
           
-      } = this.state;
+      // } = this.state;
       this.props.addUserMutation({
         variables: {         
           email,
           password : "12345678",
           role : "tech",
           createdAt : Date.now().toString(),
+          updatedAt : Date.now().toString(),
           status : "pending"
         }
       }).then(res=>{
@@ -172,7 +173,6 @@ class AddEmployee extends React.Component {
 this.props.addEmployeeMutation({
   variables: {
     userId: res.data.addUser.id,
-    username,
     name,
     email,
     gender,
@@ -195,24 +195,24 @@ this.props.addEmployeeMutation({
       });
     } else{
       console.log("i am in update")
-      const {
-        name,
-        gender,
-        ratePerHour,
-        jobTitle,
-        hoursPerWeek,
-        joinDate,
-        phone,
-        address,
-        payrollid,
-        badge,
-        pin,
-        picture,
-        department
+      // const {
+      //   name,
+      //   gender,
+      //   ratePerHour,
+      //   jobTitle,
+      //   hoursPerWeek,
+      //   joinDate,
+      //   phone,
+      //   address,
+      //   payrollid,
+      //   badge,
+      //   pin,
+      //   picture,
+      //   department
           
-      } = this.state;
+      // } = this.state;
 
-      this.props.updateEmployee({
+      this.props.updateEmployeeMutation({
         variables: {
           id : this.props.match.params.id,
           name,
@@ -230,8 +230,8 @@ this.props.addEmployeeMutation({
           department
         }
     }).then(res=>{ 
-          this.props.history.push("/employee") 
-    });     
+         console.log(res);// this.props.history.push("/employee") 
+    }).catch(res=>console.log(res));     
           }
 
 // }  //if
@@ -386,6 +386,6 @@ onChange={this.handleChange}
         }
            }),
    
-    graphql(updateEmployeeMutation , { name: "updateEmployee" }),
+    graphql(updateEmployeeMutation , { name: "updateEmployeeMutation" }),
 
     )(AddEmployee);
