@@ -30,7 +30,14 @@ import 'react-bootstrap-table2-filter/dist/react-bootstrap-table2-filter.min.css
 import {deleteTicketMutation} from '../../graphql/mutations'
 import { graphql} from 'react-apollo';
 import {flowRight as compose} from 'lodash';
+import DeleteButton from '../../components/DeleteButton'
 
+import NotificationSystem from 'react-notification-system';
+import { NOTIFICATION_SYSTEM_STYLE } from 'utils/constants';
+import {
+  MdImportantDevices,
+ 
+} from 'react-icons/md';
 
 
 
@@ -47,7 +54,7 @@ class TicketList extends Component {
     } else {
           
           const columns = [{
-            dataField: 'name',
+            dataField: 'description',
             text: 'Name',
             filter: textFilter()
           }, 
@@ -65,13 +72,7 @@ class TicketList extends Component {
               </Link>
 
 
-              <Link variant="danger" to="#" onClick={()=>{console.log(row.id); this.handleShow(row.id);}} key={row.id}
-              className="label  text-danger f-12 ml-5" >
-              
-              
-              <MdDelete size={25} color={getColor('danger')} /> 
-              
-              </Link>
+              <DeleteButton handleDelete={this.handleDelete} deleteRec={row.id} />
                
               </div>
               );
@@ -92,8 +93,39 @@ class TicketList extends Component {
 }
 
 
+handleDelete=(id=null)=>{
+  if (id)
+  {
+     this.props.deleteTicketMutation({
+      variables: {
+          id
+          
+      },
+    refetchQueries: [{ query: queryEveryTicket }]
+    });
+    //put here a notification similar to the home page.
+    setTimeout(() => {
+      if (!this.notificationSystem) {
+        return;
+      }
+
+      this.notificationSystem.addNotification({
+        title: <MdImportantDevices />,
+        message: 'Record has been deleted!',
+        level: 'info',
+      });
+    }, 1500);
+  }
+}
+
+
+
+
+
+
+
   render() {
-    console.log(this.props)
+    console.log("render...props",this.props)
   return (
     <Page title="Ticket" breadcrumbs={[{ name: 'ticket', active: true }]}>
    
@@ -118,8 +150,9 @@ class TicketList extends Component {
 };
 }
 export default compose(
-  graphql(queryEveryTicket),
-  graphql(deleteTicketMutation  ,{ name: "deleteTicketMutation" })
-        
+  graphql(queryEveryTicket, {
+    options: { fetchPolicy: 'network-only' },
+  }),
+  graphql(deleteTicketMutation, { name: "deleteTicketMutation" })
     
 )(TicketList);

@@ -25,7 +25,8 @@ import { flowRight as compose } from 'lodash';
 
 import {queryEveryCustomer} from '../../graphql/queries'
 import {queryEveryEmployee} from '../../graphql/queries'
-import {addTicketMutation} from '../../graphql/mutations'
+import {queryTicketById} from '../../graphql/queries'
+import {addTicketMutation, updateTicketMutation} from '../../graphql/mutations'
 
 class AddTicket extends React.Component {
 
@@ -39,58 +40,84 @@ class AddTicket extends React.Component {
         comment:'',
         dateCallReceived:'',
         createdAt:'',
-        status:''
+        status:'',
+        operation : "Add",
+        values : {}
       };
       
     }
 
-    
-    displayCustomers = () => {
-//       var {data} = this.props ;
+ 
+    componentDidMount(preprops){
+      // console.log("didmount",this.props)
+      if(this.props.match.params.id){
+        // this.props.queryClientsById.refetch(); // >>> Refetch here!
+        this.setState({operation : "Update"})
+      }
+      
+    } 
+    componentDidUpdate(prevProps) {
+       console.log("props.data.ticket",this.props)
+      // console.log("prev",prevProps.data)
+      if( prevProps.data.ticket !== this.props.data.ticket ){
+        console.log("----------------------------------")
+        const {
+          customerId,
+          category,
+          assignTo,
+          description,
+          comment,
+          dateCallReceived,
+          createdAt,
+          status
+              
+        } =this.props.data.ticket 
+        this.setState({
+          values : {
+            customerId,
+            category,
+            assignTo,
+            description,
+            comment,
+            dateCallReceived,
+            createdAt,
+            status
+            }
+        })
+      }
+    }//didupdate    
 
-var { everyCustomer} = this.props.queryEveryCustomer
 
-console.log(everyCustomer)
-     
-//       console.log("customer=",this.props)
-//       if(data.loading){
-//         return( <div>Loading tickets...</div> );
-//     } else {
-  if(everyCustomer){
-const tab = everyCustomer.map((cust)=>{return <option value={cust.id}>{cust.name}</option>})
-      return tab;
-    }
-   }//displaycustomer
+
+   displayCustomers = () => {
+          var { everyCustomer} = this.props.queryEveryCustomer
+          // console.log(everyCustomer)
+            if(everyCustomer){
+          const tab = everyCustomer.map((cust)=>{return <option value={cust.id} selected={this.state.values.customerId===cust.id}>{cust.name}</option>})
+                return tab;
+              }
+      }//displaycustomer
    
    displayEmployee = () => {
-    // var {everyEmployee} = this.props ;
-    // queryEveryEmployee.everyEmployee
-    var {everyEmployee} = this.props.queryEveryEmployee
-
-    //console.log("eeee=",this.props)
-  //   if(data.loading){
-  //     return( <div>Loading tickets...</div> );
-  // } else {
-if(everyEmployee){
-  const tab = everyEmployee.map((emp)=>{return <option value={emp.id}>{emp.name}</option>})
-      return tab;
+        var {everyEmployee} = this.props.queryEveryEmployee
+       if(everyEmployee){
+        const tab = everyEmployee.map((emp)=>{return <option value={emp.id} selected={this.state.values.assignTo===emp.id}>{emp.name}</option>})
+         return tab;
 }
-
-  // }
  }//employee
 
 
     handleChange = (e) => {
-  
-
-      this.setState({
+      this.setState({ 
+        values : { 
+        ...this.state.values,
         [e.target.name]: e.target.value
+       }
       });
-  //console.log(this.state)
+    
       }
   
 /////////////////////
-// handleSubmit = (event, errors, values) => {
   handleSubmit = (event) => {
     event.preventDefault();
     // console.log("faiza",this.state.customerId)
@@ -105,10 +132,9 @@ if(everyEmployee){
       dateCallReceived,
       
         
-    } = this.state;
+    } = this.state.values;
 
-    console.log(this.state)
-
+    if (this.state.operation === "Add"){
     this.props.addTicketMutation({
         variables: {
           customerId,
@@ -123,44 +149,39 @@ if(everyEmployee){
     }).then(res=>{ 
           this.props.history.push("/ticket")
     }).catch(res=>{console.log(res)}); 
+  }//endif
+else{
+console.log('updated')
+this.props.updateTicketMutation({
+  variables: {
+    id : this.props.match.params.id,
+    customerId,
+    assignTo,
+    category,
+    description,
+    comment,
+    dateCallReceived,
+    status,
 
-  //  this.setState({errors, values});
-   
-  //   if(this.state.errors.length === 0){
-  //   const {
-  //     name ,
-  //     phone,
-  //     address ,
-  //     area,
-  //     fax 
-        
-  //   } = this.state.values;
-  //   this.props.TicketFormMutation({
-  //       variables: {
-  //         name ,
-  //         phone,0
-  //         address ,
-  //         area,
-  //         fax 
-            
-  //       }
-  //   }).then(res=>{ 
-  //         this.props.history.push("/ticket")
-  //   }); 
-  // }
-}
+  }
+}).then(res=>{ 
+    //this.props.history.push("/ticket") 
+    console.log("finally updated",res)
+});     
+
+}//else
+}//handlesubmit
 /////////////////////////
 
     render() {
       console.log("renedr",this.props)
       return (
-    <Page title="Add ticket" breadcrumbs={[{ name: 'add ticket', active: true }]}>
+    <Page title="Ticket" breadcrumbs={[{ name: this.state.operation+' ticket', active: true }]}>
       <Row>
         <Col xl={10} lg={12} md={12}>
           <Card>
-            <CardHeader>New Ticket</CardHeader>
             <CardBody>
-
+            <CardHeader>Tickets</CardHeader>
               <Form onSubmit={this.handleSubmit}>
 
           {/* <form> */}
@@ -186,22 +207,26 @@ if(everyEmployee){
                 <Input
                     type="text"
                     name="category" onChange={this.handleChange}
+                    value = {this.state.values.category || ""}
+
                   />
 
            </FormGroup>
            <FormGroup> 
                 <label htmlFor="description">description</label>
-                <Input type="textarea" name="description"  onChange={this.handleChange}/>
+                <Input type="textarea" name="description"  onChange={this.handleChange}
+                value = {this.state.values.description || ""}
+                />
          </FormGroup>
           <FormGroup> 
                 <label htmlFor="comment">comment</label>
-                <Input type="textarea" name="comment" onChange={this.handleChange} />
+                <Input type="textarea" name="comment" onChange={this.handleChange} value = {this.state.values.comment || ""} />
          </FormGroup>
 
             <FormGroup>
-                <label htmlFor="dateCallReceived">date call received</label>
+                <label htmlFor="dateCallReceived">date call received (mm/dd/yyyy)</label>
                 <Input
-                type="date"
+                type="text"
                 name="dateCallReceived"
                 value={this.state.dateCallReceived}
                 onChange={this.handleChange}
@@ -211,8 +236,8 @@ if(everyEmployee){
             <label htmlFor="status">Ticket Status</label>
             <Input type="select" name="status" onChange={this.handleChange}>
             <option value="">---select status ---</option>
-            <option value="close">Close</option>
-            <option value="pending">pending</option>
+            <option value="close" selected={this.state.values.status==='close'}>Close</option>
+            <option value="pending" selected={this.state.values.status==='pending'}>pending</option>
             </Input>
            </FormGroup>
 
@@ -237,5 +262,16 @@ if(everyEmployee){
    export default compose(
     graphql(queryEveryCustomer, {name: "queryEveryCustomer"}),
     graphql(queryEveryEmployee, {name: "queryEveryEmployee"}),
-    graphql(addTicketMutation , { name: "addTicketMutation" })
+    graphql(addTicketMutation , { name: "addTicketMutation" }),
+    graphql(queryTicketById , {
+      options: (props) => {
+        return {
+            variables: {
+                id: props.match.params.id
+            }
+        }
+        }
+           }),
+    
+    graphql(updateTicketMutation , { name: "updateTicketMutation" })
    )(AddTicket);

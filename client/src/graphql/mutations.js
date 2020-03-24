@@ -23,9 +23,12 @@ const addUserMutation = gql`
 `
 
 const updateUserMutation = gql`
-  mutation($id: String!, $email: String!, $password: String!, $status: String, $role: String, $createdAt: String, $updatedAt: String) {
+  mutation($id: ID!, $email: String!, $password: String!, $status: String, $role: String, $createdAt: String, $updatedAt: String) {
     updateUser(id: $id, email: $email, password: $password, status: $status, role: $role, createdAt: $createdAt, updatedAt: $updatedAt) {
       id
+      email
+      password
+      status
       email
       password
       status
@@ -73,11 +76,10 @@ const addEmployeeMutation = gql`
 `
 
 const updateEmployeeMutation = gql`
-  mutation($id: String!, $name: String, $userId: ID!, $gender: String, $ratePerHour: String, $jobTitle: String, $hoursPerWeek: String, $joinDate: String, $phone: String, $address: String, $payrollid: String, $badge: String, $pin: String, $picture: String, $department: String) {
-    updateEmployee(id: $id, name: $name, userId: $userId, gender: $gender, ratePerHour: $ratePerHour, jobTitle: $jobTitle, hoursPerWeek: $hoursPerWeek, joinDate: $joinDate, phone: $phone, address: $address, payrollid: $payrollid, badge: $badge, pin: $pin, picture: $picture, department: $department) {
+  mutation($id: String!, $name: String, $gender: String, $ratePerHour: String, $jobTitle: String, $hoursPerWeek: String, $joinDate: String, $phone: String, $address: String, $payrollid: String, $badge: String, $pin: String, $picture: String, $department: String) {
+    updateEmployee(id: $id, name: $name, gender: $gender, ratePerHour: $ratePerHour, jobTitle: $jobTitle, hoursPerWeek: $hoursPerWeek, joinDate: $joinDate, phone: $phone, address: $address, payrollid: $payrollid, badge: $badge, pin: $pin, picture: $picture, department: $department) {
       id
       name
-      userId
       gender
       ratePerHour
       jobTitle
@@ -212,8 +214,8 @@ const addTicketMutation = gql`
 `
 
 const updateTicketMutation = gql`
-  mutation($id: String!, $customerId: String, $category: String, $assignTo: String, $description: String, $comment: String, $dateCallReceived: String, $createdAt: String, $status: String) {
-    updateTicket(id: $id, customerId: $customerId, category: $category, assignTo: $assignTo, description: $description, comment: $comment, dateCallReceived: $dateCallReceived, createdAt: $createdAt, status: $status) {
+  mutation($id: String!, $customerId: String!, $category: String, $assignTo: String, $description: String, $comment: String, $dateCallReceived: String, $status: String) {
+    updateTicket(id: $id, customerId: $customerId, category: $category, assignTo: $assignTo, description: $description, comment: $comment, dateCallReceived: $dateCallReceived, status: $status) {
       id
       customerId
       category
@@ -221,7 +223,6 @@ const updateTicketMutation = gql`
       description
       comment
       dateCallReceived
-      createdAt
       status
     }
   }

@@ -765,7 +765,7 @@ const Mutation = new GraphQLObjectType({
         category: { type: GraphQLString },
         assignTo: { type: GraphQLString },
         description: { type: GraphQLString },
-        comments: { type: GraphQLString },
+        comment: { type: GraphQLString },
         dateCallReceived: { type: GraphQLString },
         status: { type: GraphQLString }
       },

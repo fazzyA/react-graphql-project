@@ -7,11 +7,11 @@ const employeeSchema = new Schema({
     unique: false,
     required: false
   },
-  userId: {
+  userId: { 
     type: String,
     unique: false,
     required: true
-  },
+  }, 
   gender: {
     type: String,
     unique: false,

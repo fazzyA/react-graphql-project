@@ -43,11 +43,13 @@ class EmployeeList extends Component {
 
   displayEmployees(){
     var {data} = this.props ;
-  
+  console.log("displayfunction",this.props)
     if(data.loading){
         return( <div>Loading employees...</div> );
     } else {
-          
+
+      console.log("displayfunction==else==",data.everyEmployee)
+ 
           const columns = [{
             dataField: 'name',
             text: 'Name',
@@ -129,10 +131,10 @@ handleDelete=(id=null)=>{
 };
 }
 export default compose(
-  graphql(queryEveryEmployee,    {
+  graphql(queryEveryEmployee,
+  {
     options: { fetchPolicy: 'network-only' },
   }),
   graphql(deleteEmployeeMutation  ,{ name: "deleteEmployee" })
-      
     
 )(EmployeeList);
