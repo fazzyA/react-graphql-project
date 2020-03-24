@@ -76,8 +76,8 @@ const addEmployeeMutation = gql`
 `
 
 const updateEmployeeMutation = gql`
-  mutation($id: String!, $name: String, $gender: String, $ratePerHour: String, $jobTitle: String, $hoursPerWeek: String, $joinDate: String, $phone: String, $address: String, $payrollid: String, $badge: String, $pin: String, $picture: String, $department: String) {
-    updateEmployee(id: $id, name: $name, gender: $gender, ratePerHour: $ratePerHour, jobTitle: $jobTitle, hoursPerWeek: $hoursPerWeek, joinDate: $joinDate, phone: $phone, address: $address, payrollid: $payrollid, badge: $badge, pin: $pin, picture: $picture, department: $department) {
+  mutation($id: String!, $name: String, $gender: String, $ratePerHour: String, $jobTitle: String, $hoursPerWeek: String, $joinDate: String, $phone: String, $address: String, $payrollid: String, $badge: String, $pin: String, $picture: String, $department: String, $userId : ID! ) {
+    updateEmployee(id: $id, name: $name, gender: $gender, ratePerHour: $ratePerHour, jobTitle: $jobTitle, hoursPerWeek: $hoursPerWeek, joinDate: $joinDate, phone: $phone, address: $address, payrollid: $payrollid, badge: $badge, pin: $pin, picture: $picture, department: $department, userId : $userId) {
       id
       name
       gender

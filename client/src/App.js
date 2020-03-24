@@ -40,7 +40,7 @@ const EmployeePage = React.lazy(() => import('pages/employee/List.js'));
 const CustomerPage = React.lazy(() => import('pages/customer/List.js'));
 const OrderPage = React.lazy(() => import('pages/OrderPage'));
 const ExpensePage = React.lazy(() => import('pages/ExpensePage'));
-const RoutesPage = React.lazy(() => import('pages/Routes'));
+const RoutesPage = React.lazy(() => import('pages/Routes.js'));
 
 
 const getBasename = () => {

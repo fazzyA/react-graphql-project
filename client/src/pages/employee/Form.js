@@ -211,7 +211,7 @@ this.props.addEmployeeMutation({
       //   department
           
       // } = this.state;
-
+console.log(this.props.data.employee.userId)
       this.props.updateEmployeeMutation({
         variables: {
           id : this.props.match.params.id,
@@ -227,7 +227,8 @@ this.props.addEmployeeMutation({
           badge,
           pin,
           picture,
-          department
+          department,
+          userId : this.props.data.employee.userId
         }
     }).then(res=>{ 
          console.log(res);// this.props.history.push("/employee") 
