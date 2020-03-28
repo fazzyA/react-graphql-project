@@ -21,6 +21,7 @@ import { flowRight as compose } from 'lodash';
 import {addEmployeeMutation, updateEmployeeMutation} from '../../graphql/mutations'
 import {addUserMutation} from '../../graphql/mutations'
 import {queryEmployeeById} from '../../graphql/queries'
+const axios = require("axios");
 
 
 class AddEmployee extends React.Component {
@@ -106,17 +107,44 @@ class AddEmployee extends React.Component {
 
 
     handleChange = (e) => {
+      if(e.target.id==='picture'){
+
+        this.setState({
+          values : { 
+            ...this.state.values,
+            picture:e.target.files[0].name
+           }
+
+          })
+          console.log('files',this.state.values)
+
+
+      } else{
       this.setState({
         values : { 
           ...this.state.values,
           [e.target.id]: e.target.value
          }
             });
-      console.log(this.state)
+            console.log('else===',this.state.values)
+
+          }//else
     }
 
     handleSubmit = (event, errors, values) => {
       event.preventDefault();
+      const formData = new FormData();
+        formData.append('picture',this.state.values.picture);
+        const config = {
+            headers: {
+                'content-type': 'multipart/form-data'
+            }
+        };
+        axios.post("/upload",formData,config)
+            .then((response) => {
+                alert("The file is successfully uploaded");
+            }).catch((error) => {
+        });
     // this.setState({errors, values});
      console.log("i am in handlesubmit",this.state)
     //  if(this.state.errors.length === 0){
@@ -285,7 +313,7 @@ value = {this.state.values.email || ""}
 onChange={this.handleChange}/>
        
             </fieldset>
-
+            <input type="file" name="picture" id="picture" onChange= {this.handleChange} />
 
 <AvRadioGroup name="gender" label="Gender"  errorMessage="Pick one!">
           <AvRadio name="gender" label="Male" value="Male" selected={this.state.values.gender==='Male'} onChange={this.handleChange}  />
