@@ -35,7 +35,7 @@ app.use(async (req, res, next) => {
   }
   const token = authHeader.split(" ")[1];
 
-   console.log("-----------------------------> Token : "+token)
+   //console.log("-----------------------------> Token : "+token)
   if (token !== "null" || token == undefined) {
     try {
       const currentUser = await jwt.verify(token, "process.env.SECRET");
@@ -63,13 +63,16 @@ app.post('/upload', (req, res) => {
   }
 
   const file = req.files.file;
+  // const file = req.files.file;
+  console.log('filename we got in server...',file.name);
+
   file.mv(`../client/public/uploads/${file.name}`, err => {
     if (err) {
-      console.error(err);
+      console.error("server-----------",err);
       return res.status(500).send(err);
     }
 
-    res.json({ fileName: file.name, filePath: `/uploads/${file.name}` });
+    res.json({ fileName: file.name, filePath: `../client/public/uploads/${file.name}`});
   });
 });
 /////picture upload//

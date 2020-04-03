@@ -21,6 +21,8 @@ import { flowRight as compose } from 'lodash';
 import {addEmployeeMutation, updateEmployeeMutation} from '../../graphql/mutations'
 import {addUserMutation} from '../../graphql/mutations'
 import {queryEmployeeById} from '../../graphql/queries'
+// var images = require.context('./uploads/', true);
+
 const axios = require("axios");
 
 
@@ -83,6 +85,8 @@ class AddEmployee extends React.Component {
           department
               
         } =this.props.data.employee 
+
+
         this.setState({
           values : {
             name,
@@ -108,25 +112,26 @@ class AddEmployee extends React.Component {
 
     handleChange = (e) => {
       if(e.target.id==='picture'){
+        const nowDate = Date.now();
+       // const filenamehere = e.target.files[0].name+nowDate
 
         this.setState({
           values : { 
             ...this.state.values,
-            picture:e.target.files[0].name
+            picture:e.target.files[0].name,
+            fileEmp:e.target.files[0]
            }
 
           })
-          console.log('files',this.state.values)
 
 
       } else{
       this.setState({
         values : { 
           ...this.state.values,
-          [e.target.id]: e.target.value
+          [e.target.name]: e.target.value
          }
             });
-            console.log('else===',this.state.values)
 
           }//else
     }
@@ -134,19 +139,20 @@ class AddEmployee extends React.Component {
     handleSubmit = (event, errors, values) => {
       event.preventDefault();
       const formData = new FormData();
-        formData.append('picture',this.state.values.picture);
+        formData.append('file',this.state.values.fileEmp);
         const config = {
             headers: {
                 'content-type': 'multipart/form-data'
-            }
+            } 
         };
         axios.post("/upload",formData,config)
             .then((response) => {
                 alert("The file is successfully uploaded");
-            }).catch((error) => {
+                const { fileName, filePath } = response.data;
+            }).catch((error) => { console.log('...........',error)
         });
     // this.setState({errors, values});
-     console.log("i am in handlesubmit",this.state)
+    //  console.log("i am in handlesubmit",this.state)
     //  if(this.state.errors.length === 0){
       const {
         // username,
@@ -168,25 +174,8 @@ class AddEmployee extends React.Component {
       } = this.state.values;
         //if(this.state.errors.length === 0){
       if (this.state.operation === "Add"){
-      // const {
-      //   username,
-      //   name,
-      //   email,
-      //   gender,
-      //   ratePerHour,
-      //   jobTitle,
-      //   hoursPerWeek,
-      //   joinDate,
-      //   phone,
-      //   address,
-      //   payrollid,
-      //   badge,
-      //   pin,
-      //   picture,
-      //   department
-          
-      // } = this.state;
-      this.props.addUserMutation({
+
+        this.props.addUserMutation({
         variables: {         
           email,
           password : "12345678",
@@ -196,8 +185,8 @@ class AddEmployee extends React.Component {
           status : "pending"
         }
       }).then(res=>{
-// console.log('res.data.add',res)
-// console.log(resUser.id)
+
+        // console.log(resUser.id)
 this.props.addEmployeeMutation({
   variables: {
     userId: res.data.addUser.id,
@@ -222,24 +211,9 @@ this.props.addEmployeeMutation({
 });
       });
     } else{
-      console.log("i am in update")
-      // const {
-      //   name,
-      //   gender,
-      //   ratePerHour,
-      //   jobTitle,
-      //   hoursPerWeek,
-      //   joinDate,
-      //   phone,
-      //   address,
-      //   payrollid,
-      //   badge,
-      //   pin,
-      //   picture,
-      //   department
-          
-      // } = this.state;
-console.log(this.props.data.employee.userId)
+      // console.log("const picture",picture)
+      // console.log("state value =",this.state.values.picture)
+
       this.props.updateEmployeeMutation({
         variables: {
           id : this.props.match.params.id,
@@ -259,7 +233,7 @@ console.log(this.props.data.employee.userId)
           userId : this.props.data.employee.userId
         }
     }).then(res=>{ 
-         console.log(res);// this.props.history.push("/employee") 
+         console.log(res,"updated");// this.props.history.push("/employee") 
     }).catch(res=>console.log(res));     
           }
 
@@ -269,11 +243,12 @@ console.log(this.props.data.employee.userId)
 
 
     render() {
-       console.log("rendr",this.props)
     //   console.log(this.props)
-      
+    const imagePath = '../../uploads/'+this.state.values.picture;
+          console.log(imagePath,'image path')
+
       return (
-    <Page title="Employee" breadcrumbs={[{ name: 'Employee', active: false, link : "/employee" },
+    <Page title="Employeeee" breadcrumbs={[{ name: 'Employee', active: false, link : "/employee" },
     {name: this.state.operation , active: true,}  
     ]}>
 
@@ -308,16 +283,24 @@ console.log(this.props.data.employee.userId)
           value = {this.state.values.name || ""}
           onChange={this.handleChange}
           />
-<AvField name="email" label="Email" type="email" 
-value = {this.state.values.email || ""}
-onChange={this.handleChange}/>
+{/* ////////////if add form show email field else not show it/// */}
+
+          {this.state.values.operation==='Add'?
+          <AvField name="email" label="Email" type="email" 
+          value = {this.state.values.email || ""}
+          onChange={this.handleChange}/>
+          : null}
+
        
             </fieldset>
             <input type="file" name="picture" id="picture" onChange= {this.handleChange} />
+            <div><img src={imagePath} width='100px' height='100px'></img></div>
 
-<AvRadioGroup name="gender" label="Gender"  errorMessage="Pick one!">
-          <AvRadio name="gender" label="Male" value="Male" selected={this.state.values.gender==='Male'} onChange={this.handleChange}  />
-          <AvRadio name="gender" label="Female" value="Female" selected={this.state.values.gender==='Female'} onChange={this.handleChange}/>
+<AvRadioGroup name="gender" id='gender' label="Gender"  errorMessage="Pick one!">
+  {this.state.values.gender}
+
+          <AvRadio name="gender" label="Male" value="Male" onChange={this.handleChange}  />
+          <AvRadio name="gender" label="Female" value="Female" checked={this.state.values.gender==="Female"} onChange={this.handleChange}/>
         </AvRadioGroup>
 
 
@@ -372,10 +355,11 @@ onChange={this.handleChange}
           onChange={this.handleChange}
            />
 
-
+           {this.state.values.department}
           <AvField 
           type="select" 
           name="department" 
+          id="department" 
           label="Department" 
           validate={{
           required: {value: true}
@@ -384,10 +368,10 @@ onChange={this.handleChange}
           onChange={this.handleChange}
           >
           <option >Select</option>
-          <option value="sales" >Sales</option>
-          <option value="administration" >Administration</option>
-          <option value="technical">Technical</option>
-          
+          <option value="sales" selected>Sales</option>
+          <option value="administration" selected={this.state.values.department=='administration'} >Administration</option>
+          <option value="technical" selected={this.state.values.department=='technical'}>Technical</option>
+           
         </AvField>
 
           <Button>Submit</Button>
