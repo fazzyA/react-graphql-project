@@ -1,7 +1,14 @@
 import React, { useState } from 'react';
 import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
-import classnames from 'classnames';
+import { graphql} from 'react-apollo';
+import {flowRight as compose} from 'lodash';
+
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import {Typeahead} from 'react-bootstrap-typeahead';
+
+import { queryEveryCustomer } from '../graphql/queries';
+
+
   ///fake datat generator/////////////////////////
   const getItems = count =>
   Array.from({ length: count }, (v, k) => k).map(k => ({
@@ -27,7 +34,7 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
   margin: `0 ${grid}px 0 0`,
   
   // change background colour if dragging
-  background: isDragging ? 'lightgreen' : 'grey',
+  background: isDragging ? '#7E61AA' : '#C589B1',
   
   // styles we need to apply on draggables
   ...draggableStyle,
@@ -39,6 +46,13 @@ import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
   padding: grid,
   overflow: 'auto',
   });
+  //   var {data} = this.props;
+  
+  //   if(!(data.loading)){
+                  
+  //         const mydata = this.props.data.everyCustomer
+  //         console.log(typeof(data.everyCustomer))
+  // }
   
 //----------------------------------------------------------------------------------
 class Routes extends React.Component {
@@ -47,10 +61,12 @@ class Routes extends React.Component {
 //   const toggle = tab => {
 //     if(activeTab !== tab) setActiveTab(tab);
 //   }
+
 constructor(props){
   super(props)
   this.state = {
     items: getItems(6),
+    selected: []
   };
   this.onDragEnd = this.onDragEnd.bind(this);
 }//constructor
@@ -68,16 +84,33 @@ onDragEnd(result) {
   );
 
   this.setState({
-    items,
+    ...this.state,items,
   });
 }
 
 
-
 render(){
+  // mydata = this.props.data.everyCustomer
+
+  console.log(this.props.data.everyCustomer)
   return (
     <div>
-      <DragDropContext onDragEnd={this.onDragEnd}>
+     {/* { this.displayClients()} */}
+      <hr></hr>
+      <Typeahead
+      id="typeahead1" 
+      labelKey='name'
+      multiple='true'
+  onChange={(selected) => {
+     this.setState({...this.state,selected});
+    console.log('i am onchange of type ahead')
+  }}  
+  options={this.props.data.everyCustomer}
+   selected={this.state.selected}
+   placeholder="Choose a customer..."
+/>
+
+      <br></br><br></br><DragDropContext onDragEnd={this.onDragEnd}>
         <Droppable droppableId="droppable" direction="horizontal">
           {(provided, snapshot) => (
             <div
@@ -157,4 +190,6 @@ render(){
     }
 }
 
-export default Routes;
+export default compose(
+  graphql(queryEveryCustomer)    
+    )(Routes);
