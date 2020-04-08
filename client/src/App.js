@@ -41,6 +41,7 @@ const CustomerPage = React.lazy(() => import('pages/customer/List.js'));
 const OrderPage = React.lazy(() => import('pages/OrderPage'));
 const ExpensePage = React.lazy(() => import('pages/ExpensePage'));
 const RoutesPage = React.lazy(() => import('pages/Routes.js'));
+const RoutePage = React.lazy(() => import('pages/Routesdnd.js'));
 
 
 const getBasename = () => {
@@ -91,6 +92,7 @@ class App extends React.Component {
                 <Route exact path="/customer-calendar" component={CustomerCalendar} />
                 <Route exact path="/employee-calendar" component={EmployeeCalendar} />
                 <Route exact path="/routes" component={RoutesPage} />
+                <Route exact path="/route" component={RoutePage} />
                 <Route
                   exact
                   path="/button-groups"

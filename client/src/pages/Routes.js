@@ -9,12 +9,13 @@ import {Typeahead} from 'react-bootstrap-typeahead';
 import { queryEveryCustomer } from '../graphql/queries';
 
 
-  ///fake datat generator/////////////////////////
-  const getItems = count =>
-  Array.from({ length: count }, (v, k) => k).map(k => ({
+  ///fake data generator/////////////////////////
+  const getItems = count =>{
+    //console.log(this.state)
+    return Array.from({ length: count }, (v, k) => k).map(k => ({
     id: `item-${k}`,
     content: `item ${k}`,
-  }));
+  }))};
   
   // a little function to help us with reordering the result
   const reorder = (list, startIndex, endIndex) => {
@@ -65,7 +66,8 @@ class Routes extends React.Component {
 constructor(props){
   super(props)
   this.state = {
-    items: getItems(6),
+    // items: getItems(6),
+    items: [],
     selected: []
   };
   this.onDragEnd = this.onDragEnd.bind(this);
@@ -102,8 +104,10 @@ render(){
       labelKey='name'
       multiple='true'
   onChange={(selected) => {
-     this.setState({...this.state,selected});
-    console.log('i am onchange of type ahead')
+    this.setState({...this.state,selected});
+    this.setState({...this.state,
+      items:[...this.state.items, selected]});
+    console.log('items',this.state.items)
   }}  
   options={this.props.data.everyCustomer}
    selected={this.state.selected}
