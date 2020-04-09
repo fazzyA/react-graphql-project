@@ -56,7 +56,7 @@ import { queryEveryCustomer } from '../graphql/queries';
   // }
   
 //----------------------------------------------------------------------------------
-class Routes extends React.Component {
+class Routes extends React.Component { 
 //   const [activeTab, setActiveTab] = useState('1');
 
 //   const toggle = tab => {
@@ -93,7 +93,7 @@ onDragEnd(result) {
 
 render(){
   // mydata = this.props.data.everyCustomer
-
+console.log(this.state.items)
   console.log(this.props.data.everyCustomer)
   return (
     <div>
@@ -104,9 +104,12 @@ render(){
       labelKey='name'
       multiple='true'
   onChange={(selected) => {
-    this.setState({...this.state,selected});
+    console.log(selected)
+   //let slecteditem =selected[0]
+    selected[0].serviceHOurs=`item-${selected[0].id}`;
+    //this.setState({...this.state,slecteditem});
     this.setState({...this.state,
-      items:[...this.state.items, selected]});
+      items:[...this.state.items, selected[0]]});
     console.log('items',this.state.items)
   }}  
   options={this.props.data.everyCustomer}
@@ -114,7 +117,9 @@ render(){
    placeholder="Choose a customer..."
 />
 
-      <br></br><br></br><DragDropContext onDragEnd={this.onDragEnd}>
+      <br></br><br></br>
+      
+      <DragDropContext onDragEnd={this.onDragEnd}>
         <Droppable droppableId="droppable" direction="horizontal">
           {(provided, snapshot) => (
             <div
@@ -134,7 +139,8 @@ render(){
                         provided.draggableProps.style
                       )}
                     >
-                      {item.content}
+                      {item.name}
+                      
                     </div>
                   )}
                 </Draggable>
