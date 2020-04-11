@@ -1,12 +1,15 @@
 import React, { useState } from 'react';
-import { TabContent, TabPane, Nav, NavItem, NavLink, Card, Button, CardTitle, CardText, Row, Col } from 'reactstrap';
+import { TabContent, TabPane, Nav, NavItem, NavLink, 
+ Form, FormGroup, Label, Input, FormText, Card, Button, CardTitle, CardText, Row, Col, CardBody } from 'reactstrap';
 import { graphql} from 'react-apollo';
+import CardDelete from '../components/Card/CardDelete';
 import {flowRight as compose} from 'lodash';
 
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import {Typeahead} from 'react-bootstrap-typeahead';
 
 import { queryEveryCustomer } from '../graphql/queries';
+
 
 
   ///fake data generator/////////////////////////
@@ -68,7 +71,9 @@ constructor(props){
   this.state = {
     // items: getItems(6),
     items: [],
-    selected: []
+    selected: [],
+    myitems: [],
+    errMsg:''
   };
   this.onDragEnd = this.onDragEnd.bind(this);
 }//constructor
@@ -88,34 +93,105 @@ onDragEnd(result) {
   this.setState({
     ...this.state,items,
   });
-}
+}//onDragEnd
+handleChange = (e) =>{
+  
+  this.setState({
+    [e.target.name] : e.target.value
+  })
+  console.log(this.state)
+} //end handleChange
+handleTypeChange = (selected) => {
 
+   let selectedId =selected[0].id
+
+   console.log(this.state.myitems);
+   console.log(selected);
+   if(this.state.myitems.length>0){
+     const duplicate = this.state.myitems.some((item)=>item.id==selectedId)
+  //  if(selectedId==this.state.myitems[0].id)
+        if(duplicate){
+        this.setState({errMsg:'This customer is already been added to this route'})
+        }
+        else {
+          selected[0].serviceHours=this.state.serviceHours;
+
+          this.setState({
+            myitems:[...this.state.myitems, selected[0]],
+            errMsg:''
+          });
+      
+          }
+   }else{
+    selected[0].serviceHours=this.state.serviceHours;
+
+    this.setState({
+      myitems:[...this.state.myitems, selected[0]],
+      errMsg:''
+    });
+
+   }
+  //  const duplicateRecord = this.state.myitems.length?this.state.myitems.filter((itm)=>itm.id==selectedId)
+  //  :'';
+  //  console.log(duplicateRecord);
+  //  if(duplicateRecord){
+  //    
+  //  } else{
+ //   }//else
+
+  }
+handleSubmit = (e)=>{
+  e.preventDefault();
+  // this.setState({
+  //   items:[...this.state.items, this.state.myitems]});
+  this.setState({
+    items:this.state.myitems});
+
+
+}
+handleDelete =(id)=>{
+  const newList = this.state.items.filter((item)=>item.id!=id);
+  this.setState({items:newList});
+}
 
 render(){
   // mydata = this.props.data.everyCustomer
-console.log(this.state.items)
-  console.log(this.props.data.everyCustomer)
   return (
     <div>
      {/* { this.displayClients()} */}
       <hr></hr>
+      <Form onSubmit={this.handleSubmit}>
+      <FormGroup>
+      <card>
+          <CardTitle>Route Start Time</CardTitle>
+       <CardBody>
+        <Input type="text" name="startTime" id="startTime" 
+        onChange={this.handleChange}
+        placeholder="Start Time for Route" />
+        </CardBody>
+      </card>
+      </FormGroup>
+
+      <FormGroup>
+      <Label for="serviceHours">serviceHours</Label>
+
+        <Input type="text" 
+        name="serviceHours" id="serviceHours" 
+        onChange={this.handleChange}
+        placeholder="Hours for customer service" />
+      </FormGroup>
+  <span className=''>{this.state.errMsg}</span>
       <Typeahead
       id="typeahead1" 
       labelKey='name'
       multiple='true'
-  onChange={(selected) => {
-    console.log(selected)
-   //let slecteditem =selected[0]
-    selected[0].serviceHOurs=`item-${selected[0].id}`;
-    //this.setState({...this.state,slecteditem});
-    this.setState({...this.state,
-      items:[...this.state.items, selected[0]]});
-    console.log('items',this.state.items)
-  }}  
+  onChange={this.handleTypeChange}  
   options={this.props.data.everyCustomer}
    selected={this.state.selected}
    placeholder="Choose a customer..."
 />
+      <Button>Add Customer to Route</Button>
+</Form>
 
       <br></br><br></br>
       
@@ -139,7 +215,8 @@ console.log(this.state.items)
                         provided.draggableProps.style
                       )}
                     >
-                      {item.name}
+                      <CardDelete item={item} deleteCard={this.handleDelete}></CardDelete>
+                     
                       
                     </div>
                   )}
