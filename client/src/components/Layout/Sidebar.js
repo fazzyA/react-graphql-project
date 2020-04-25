@@ -109,6 +109,7 @@ const naviItems = [
   { to: '/employee', name: 'employee', exact: false, Icon: MdWidgets },
   { to: '/customer', name: 'customer', exact: false, Icon: MdWidgets },
   { to: '/routes', name: 'routes', exact: false, Icon: MdWidgets },
+  { to: '/washorder', name: 'washorder', exact: false, Icon: MdWidgets },
   // { to: '/order', name: 'order', exact: false, Icon: MdWidgets },
   // { to: '/expense', name: 'expense', exact: false, Icon: MdWidgets },
 ];

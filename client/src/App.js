@@ -5,6 +5,7 @@ import AddEmployee from './pages/employee/Form';
 import AddTicket from './pages/ticket/Form';
 import AddCustomer from './pages/customer/Form';
 import AddClient from 'components/Form/AddClient';
+import AddWO from './pages/washorder/Form';
 import ClientList from 'components/Form/ClientList';
 import AddUser from 'components/Form/AddUser';
 import PageSpinner from 'components/PageSpinner';
@@ -42,6 +43,7 @@ const OrderPage = React.lazy(() => import('pages/OrderPage'));
 const ExpensePage = React.lazy(() => import('pages/ExpensePage'));
 const RoutesPage = React.lazy(() => import('pages/Routes.js'));
 const RoutePage = React.lazy(() => import('pages/Routesdnd.js'));
+const WOPage = React.lazy(() => import('pages/washorder/List.js'));
 
 
 const getBasename = () => {
@@ -93,6 +95,9 @@ class App extends React.Component {
                 <Route exact path="/employee-calendar" component={EmployeeCalendar} />
                 <Route exact path="/routes" component={RoutesPage} />
                 <Route exact path="/route" component={RoutePage} />
+                <Route exact path="/washorder" component={WOPage} />
+
+                {/* <Route exact path="/wo" component={WOPage} /> */}
                 <Route
                   exact
                   path="/button-groups"
@@ -116,7 +121,9 @@ class App extends React.Component {
                 <Route exact path="/employee/update/:id" component={AddEmployee} />
                 <Route exact path="/ticket/add" component={AddTicket} />
                 <Route exact path="/ticket/update/:id" component={AddTicket} />
-                
+                <Route exact path="/washorder/add" component={AddWO} />
+                <Route exact path="/washorder/update/:id" component={AddWO} />
+
 
               </React.Suspense>
             </MainLayout>

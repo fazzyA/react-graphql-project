@@ -8,7 +8,7 @@ import {flowRight as compose} from 'lodash';
 import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
 import {Typeahead} from 'react-bootstrap-typeahead';
 
-import { queryEveryCustomer } from '../graphql/queries';
+import { queryEveryCustomer, queryEveryEmployee } from '../graphql/queries';
 
 
 
@@ -153,14 +153,30 @@ handleDelete =(id)=>{
   const newList = this.state.items.filter((item)=>item.id!=id);
   this.setState({items:newList});
 }
+displayEmployee = () => {
+  var {everyEmployee} = this.props.queryEveryEmployee;
+ if(everyEmployee){
+  const tab = everyEmployee.map((emp)=>{return <option value={emp.id} key={emp.id}>{emp.name}</option>})
+   return tab;
+}
+}//employee
 
 render(){
   // mydata = this.props.data.everyCustomer
+  console.log(this.props)
   return (
     <div>
      {/* { this.displayClients()} */}
       <hr></hr>
       <Form onSubmit={this.handleSubmit}>
+      <FormGroup>
+            <label htmlFor="techid">Tech assigned to this route</label>
+            <Input type="select" name="techid" onChange={this.handleChange}>
+            <option value="">---select status ---</option>
+            { this.displayEmployee()}
+            </Input>
+           </FormGroup>
+
       <FormGroup>
       <card>
           <CardTitle>Route Start Time</CardTitle>
@@ -278,5 +294,6 @@ render(){
 }
 
 export default compose(
-  graphql(queryEveryCustomer)    
+  graphql(queryEveryCustomer),
+  graphql(queryEveryEmployee,{name:"queryEveryEmployee"})    
     )(Routes);
